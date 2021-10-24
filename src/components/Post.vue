@@ -4,7 +4,7 @@
  :id="`p-${post.id}`">
     <h3>{{post.title}}, <span class="postDate">{{post.year}}.</span></h3>
     
-    <Carousel>
+    <Carousel :mouse-drag="false">
     <Slide v-for="slide in post.images.length" :key="slide">
       <div class="carousel__item"><img :src="this.post.images[slide - 1]" alt=""></div>
     </Slide>
