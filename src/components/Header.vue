@@ -103,6 +103,7 @@ p {
 
 hr {
     margin-top: .5rem;
+    width: unset;
 }
 
 .slider {

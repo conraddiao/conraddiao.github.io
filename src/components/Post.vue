@@ -87,12 +87,8 @@
 
 <style>
     .post {
-        margin: 1rem 0.5rem 0.5rem 0.5rem;
+        margin: 1rem;
         max-width: 800px;
-    }
-
-    .post > :not(.carousel) {
-        margin: 0 0.5rem;
     }
 
     .postDate {
@@ -106,7 +102,8 @@
 
     .container {
         display: flex;
-        overflow: scroll;
+        overflow-x: scroll;
+        overflow-y: hidden;
         background-color: var(--color-three);
         width: 100%;
         aspect-ratio: 1;
@@ -126,7 +123,8 @@
     .container > .post-image {
         scroll-snap-align: center;
         display: flex;
-        align-items: center;
+        align-items:center;
+        justify-content: center;
         width: 100%;
         aspect-ratio: 1;
 
@@ -134,8 +132,8 @@
 
     .container > .post-image > img {
         max-width: 100%;
-        display: block;
-        margin: auto;
+        max-height: 100%;
+        display: flex;
     }
 
 
