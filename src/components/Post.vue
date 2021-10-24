@@ -3,18 +3,26 @@
  class="post"
  :id="`p-${post.id}`">
     <h3>{{post.title}}, <span class="postDate">{{post.year}}.</span></h3>
-    
-    <Carousel :mouse-drag="false">
-    <Slide v-for="slide in post.images.length" :key="slide">
-      <div class="carousel__item"><img :src="this.post.images[slide - 1]" alt=""></div>
-    </Slide>
+    <div class="container x mandatory-scroll-snapping" dir="ltr">
+        <div class="post-image"
+        v-for="image in post.images.length"
+        :key="image">
+            <img :src="this.post.images[image - 1]" alt="" loading="lazy">
+        </div>
+    </div>
 
-    <template #addons>
-      <Pagination v-if="post.images.length > 1"/>
-      <Navigation v-if="post.images.length > 1"/>
-    </template>
-  </Carousel>
+    <!--
+    Carousel :mouse-drag="false">
+        <Slide v-for="slide in post.images.length" :key="slide">
+        <div class="carousel__item"><img :src="this.post.images[slide - 1]" alt="" loading="lazy"></div>
+        </Slide>
 
+        <template #addons>
+        <Pagination v-if="post.images.length > 1"/>
+        <Navigation v-if="post.images.length > 1"/>
+        </template>
+    </Carousel>
+    -->
     <p 
     @click='click()'
     v-html="post.copy"></p>
@@ -78,6 +86,41 @@
     .js-shave-char {
         color: var(--color-three);
     }
+
+    .container {
+        display: flex;
+        overflow: auto;
+        background-color: var(--color-three);
+        flex: none;
+    }
+
+    .container.x {
+        width: 100%;
+        flex-flow: row nowrap;
+    }
+
+    .x.mandatory-scroll-snapping {
+        scroll-snap-type: x mandatory;
+    }
+
+    .container > div {
+        text-align: center;
+        scroll-snap-align: center;
+        flex: none;
+    }
+
+    .x.container > div {
+        line-height: 128px;
+        font-size: 64px;
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    .post-image {
+        min-width: 100%;
+        aspect-ratio: 1;
+    }
+
 
     .carousel {
         position: relative;

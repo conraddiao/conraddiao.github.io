@@ -15,7 +15,7 @@
         </div>
         <div class="footer-byline">
             <span class="copywrite">Copyright © 2021 E. Conrad Diao. All rights reserved.</span>
-            <span> Hastily made with 🖤 and ☕️ by <a href="https://linkedin.com/in/econraddiao">@econraddiao</a>.</span>
+            <span> Hastily made with 🖤 and ☕️ by <a href="https://linkedin.com/in/conraddiao">@econraddiao</a>.</span>
         </div>
     </footer>
 </template>
