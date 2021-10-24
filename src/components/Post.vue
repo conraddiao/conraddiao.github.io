@@ -62,7 +62,7 @@
 
 <style>
     .post {
-        margin: 0.5rem;
+        margin: 1rem 0.5rem 0.5rem 0.5rem;
         max-width: 800px;
     }
 
