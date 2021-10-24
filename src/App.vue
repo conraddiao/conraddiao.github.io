@@ -10,6 +10,8 @@
   import Header from './components/Header.vue'  
   import Posts  from './components/Posts.vue'
   import Footer from './components/Footer.vue'
+  import honorifics from './assets/honorifics.json'
+  import posts from './assets/posts.json'
   export default {
     name: 'App',
     components: {
@@ -18,49 +20,9 @@
       Footer
     },
     created() {
-      this.honorifics = [
-        {
-          id: 1,
-          title: '__marketer',
-          color: 'blue'
-        },
-        {
-          id: 2,
-          title: '_developer',
-          color: 'fuchsia'
-        },
-        {
-          id: 3,
-          title: '_architect',
-          color: 'grey'
-        },
-        {
-          id: 4,
-          title: '____singer',
-          color: 'red'
-        },
-        {
-          id: 5,
-          title: '____artist',
-          color: 'green'
-        },
-        {
-          id: 6,
-          title: '_____skier',
-          color: 'gainsboro'
-        },
-        {
-          id: 7,
-          title: '__futurist',
-          color: 'coral'
-        },
-        {
-          id: 8,
-          title: 'shitposter',
-          color: 'saddlebrown'
-        }
-      ]
-      this.posts = [
+      this.honorifics = honorifics
+      this.posts = posts
+      this.posts2 = [
         {
           id: 1,
           title: "Down By The River",

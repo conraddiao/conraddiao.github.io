@@ -2,24 +2,25 @@
     export default {
         name: 'Honorific',
         inject: ['honorifics'],
-        created() {
-            setInterval(() => {
-                this.title = this.honorifics.value[Math.floor(Math.random() * this.honorifics.value.length)].title
-                this.color.background = this.honorifics.value[Math.floor(Math.random() * this.honorifics.value.length)].color
-            }, 200);
-            
-        },
         data() {
             return {
-                title: String,
-                color: {background: String}
+                btitle: String,
+                bcolor: {backgroundColor: String}
             }
+        },
+        mounted() {
+            setInterval(() => {
+                let index = Math.floor(Math.random() * this.honorifics.value.length);
+                this.btitle = this.honorifics.value[index].title;
+                this.bcolor.backgroundColor = this.honorifics.value[index].color;
+            }, 200);
+            
         }
     }
 </script>
 
 <template>
-    <span @click="onClick()" :style="color">&nbsp;{{title}}&nbsp;</span>
+    <span :style="this.bcolor">&nbsp;{{btitle}}&nbsp;</span>
 </template>
 
 <style scoped>

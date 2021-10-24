@@ -15,7 +15,9 @@
     </template>
   </Carousel>
 
-    <p @click='click()'>{{post.copy}}</p>
+    <p 
+    @click='click()'
+    v-html="post.copy"></p>
 </div>
 </template>
 
@@ -100,6 +102,8 @@
     }
     
     .carousel__slide {
+        width: 100%;
+        aspect-ratio: 1;
         scroll-snap-stop: auto;
         flex-shrink: 0;
         margin: 0;
@@ -111,10 +115,10 @@
     }
 
     .carousel__item {
-        max-height: 800px;
-        max-width: 800px;
+        width: 100%;
+        height: 100%;
+        border-radius: 1rem;
         background-color: var(--color-three);
-        color:  white;
         font-size: 20px;
         display: flex;
         justify-content: center;
@@ -123,14 +127,16 @@
 
     .carousel__item > img {
         max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
     }
 
     .carousel__next,
     .carousel__prev {
-        background-color: white;
+        background-color: transparent;
         border-radius: 1rem;
-        width: 1rem;
-        height: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
         text-align: center;
         font-size: calc(var(--vc-nav-width) * 2 / 3);padding:0;
         display: flex;
@@ -140,9 +146,8 @@
         border: 0;
         cursor: pointer;
         box-sizing: content-box;
-        border: 0.25rem solid white;
         fill: var(--color-two);
-        top: calc(50% - 0.75rem);
+        top: calc(50% - 0.50rem);
     }
 
     .carousel__prev {
@@ -182,10 +187,11 @@
         border-radius: .5rem;
         border: 0;
         cursor: pointer;
-        background-color: var(--color-three);
+        background-color: var(--color-three)
     }
-
+    
     .carousel__pagination-button--active {
         background-color: var(--color-two);
     }
+
 </style>

@@ -89,16 +89,6 @@ header {
     z-index: 11;
 }
 
-header::after {
-    position:absolute;
-    bottom: -.5rem;
-    content: "";
-    height: .5rem;
-    width: 100%;
-    background: linear-gradient(rgba(255, 255, 255, .3), transparent);
-    pointer-events: none;
-}
-
 h1 {
     margin-bottom: .5rem;
 }

@@ -1,0 +1,31 @@
+[
+    {
+        "title" : "This Website (woah, meta)",
+        "year" : "2021",
+        "type" : "gallery",
+        "copy" : "I'm no professional developer, but I know enough to be dangerous, and I like to keep what few tools I've got in the shed sharp. This is my fourth re-vamp of my personal website; I've finally used a Framework, in this case Vue, after learning the rudiments of web development.",
+        "images" : [
+        ]
+    },
+    {
+        "title" : "Null Wines",
+        "year" : "2021",
+        "type" : "gallery",
+        "copy" : "Brand, digital, and creative consulting for a startup non-alcoholic wine brand. In a matter of weeks, did an evaulation of the brand, it's values, opinions, tone, and mannerisms, and created packaging inserts, press material, and a webstore <a href=\"https://nullwines.com\">nullwines.com</a>.",
+        "images" : [
+            "https://github.com/econraddiao/img/blob/5f179d5df39332c2885741e898fd0d78777cc362/Screen%20Shot%202021-10-23%20at%203.51.03%20PM.png?raw=true",
+            "https://github.com/econraddiao/img/blob/main/SPARKLING ROSE.png?raw=true",
+            "https://github.com/econraddiao/img/blob/main/BLANC BURGUNDER.png?raw=true",
+            "https://github.com/econraddiao/img/blob/main/PRICKLY RED.png?raw=true"
+          ]
+    },
+    {
+        "title" : "Down By The River",
+        "year" : "2017",
+        "type" : "gallery",
+        "copy" : "After a long drive and a short night, a Wisconsin fog said hello.",
+        "images" : [
+            "https://raw.githubusercontent.com/econraddiao/img/main/_DSC3506.jpg"
+        ]
+    }
+]

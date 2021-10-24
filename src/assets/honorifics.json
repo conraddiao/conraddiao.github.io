@@ -1,0 +1,34 @@
+[
+    {
+        "title" : "__marketer",
+        "color" : "blue"
+    },
+    {
+        "title" : "_developer",
+        "color" : "fuchsia"
+    },
+    {
+        "title" : "_architect",
+        "color" : "black"
+    },
+    {
+        "title" : "____singer",
+        "color" : "red"
+    },
+    {
+        "title" : "____artist",
+        "color" : "green"
+    },
+    {
+        "title" : "_____skier",
+        "color" : "lavender"
+    },
+    {
+        "title" : "__futurist",
+        "color" : "cyan"
+    },
+    {
+        "title" : "shitposter",
+        "color" : "saddlebrown"
+    }
+]
