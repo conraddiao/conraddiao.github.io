@@ -3,7 +3,9 @@
  class="post"
  :id="`p-${post.id}`">
     <h3>{{post.title}}, <span class="postDate">{{post.year}}.</span></h3>
-    <div class="container x mandatory-scroll-snapping" dir="ltr">
+    <div class="container mandatory-scroll-snapping" 
+         dir="ltr"
+         v-if="post.images.length">
         <div class="post-image"
         v-for="image in post.images.length"
         :key="image">
@@ -32,6 +34,7 @@
 <script>
     import shave from 'shave';
     import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel';
+    //import VueMobileCarousel from './components/VueMobileCarousel.vue';
 
     export default {
         name: 'Post',
@@ -40,7 +43,8 @@
             Carousel,
             Slide,
             Pagination,
-            Navigation
+            Navigation,
+            //VueMobileCarousel
         },
         props: {
             post: Object,
@@ -50,6 +54,19 @@
             return {
                 isExpanded: Boolean
             }
+        },
+        created() {
+            let checking = false;
+            document.querySelectorAll(".container")
+                    .forEach(i => i.addEventListener('scroll', () => {
+                if(!checking) {
+                    checking = true;
+                    setTimeout(() => {
+                        console.log(i.scrollLeft);
+                        checking = false;
+                    }, 500);
+                }
+            }))
         },
         mounted() {
             this.isExpanded = false;
@@ -63,9 +80,9 @@
                     this.isExpanded = true;
                 }
             }
-
         }
     }
+
 </script>
 
 <style>
@@ -89,37 +106,38 @@
 
     .container {
         display: flex;
-        overflow: auto;
+        overflow: scroll;
         background-color: var(--color-three);
-        flex: none;
-    }
-
-    .container.x {
         width: 100%;
+        aspect-ratio: 1;
         flex-flow: row nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
-    .x.mandatory-scroll-snapping {
+    .container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mandatory-scroll-snapping {
         scroll-snap-type: x mandatory;
     }
 
-    .container > div {
-        text-align: center;
+    .container > .post-image {
         scroll-snap-align: center;
-        flex: none;
-    }
-
-    .x.container > div {
-        line-height: 128px;
-        font-size: 64px;
+        display: flex;
+        align-items: center;
         width: 100%;
         aspect-ratio: 1;
+
     }
 
-    .post-image {
-        min-width: 100%;
-        aspect-ratio: 1;
+    .container > .post-image > img {
+        max-width: 100%;
+        display: block;
+        margin: auto;
     }
+
 
 
     .carousel {
