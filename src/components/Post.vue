@@ -4,30 +4,23 @@
  :id="`p-${post.id}`">
     <h3>{{post.title}}, <span class="postDate">{{post.year}}.</span></h3>
     <div class="container mandatory-scroll-snapping" 
-         dir="ltr"
-         v-if="post.images.length">
+    dir="ltr"
+    v-if="post.images.length">
+        <div class="pagination-container" v-if="post.images.length">
+            <span class="pagination-icon"
+            v-for="i in post.images.length"
+            :key="i" id="i">
+            </span>
+        </div>
         <div class="post-image"
         v-for="image in post.images.length"
         :key="image">
             <img :src="this.post.images[image - 1]" alt="" loading="lazy">
         </div>
     </div>
+    
 
-    <!--
-    Carousel :mouse-drag="false">
-        <Slide v-for="slide in post.images.length" :key="slide">
-        <div class="carousel__item"><img :src="this.post.images[slide - 1]" alt="" loading="lazy"></div>
-        </Slide>
-
-        <template #addons>
-        <Pagination v-if="post.images.length > 1"/>
-        <Navigation v-if="post.images.length > 1"/>
-        </template>
-    </Carousel>
-    -->
-    <p 
-    @click='click()'
-    v-html="post.copy"></p>
+    <p @click='click()' v-html="post.copy"></p>
 </div>
 </template>
 
@@ -62,15 +55,19 @@
                 if(!checking) {
                     checking = true;
                     setTimeout(() => {
-                        console.log(i.scrollLeft);
+                        let page = Math.floor(i.scrollLeft / i.clientWidth);
+                        i.querySelectorAll('.pagination-icon').forEach(el => el.style.backgroundColor = 'var(--color-three)');
+                        let currentPageIcon = i.querySelector(`.pagination-container :nth-child(${page + 1})`);
+                        currentPageIcon.style.backgroundColor = "var(--color-two)";
                         checking = false;
-                    }, 500);
+                    }, 100);
                 }
             }))
         },
         mounted() {
             this.isExpanded = false;
             shave(`#p-${this.post.id} > p`, 22*4, {character: '... more'});
+            document.querySelector('.pagination-icon').style.backgroundColor = ('var(--color-two)');
         },
         methods: {
             click() { 
@@ -101,6 +98,7 @@
     }
 
     .container {
+        position: relative;
         display: flex;
         overflow-x: scroll;
         overflow-y: hidden;
@@ -134,6 +132,26 @@
         max-width: 100%;
         max-height: 100%;
         display: flex;
+    }
+
+    .pagination-container {
+        display: flex;
+        position: sticky;
+        height: 27px;
+        top: calc(100% - 54px);
+        left: calc(50% - 54px);
+        justify-content: center;
+        list-style: none;
+    }
+
+    .pagination-icon {
+        margin: .5rem;
+        width: .5rem;
+        height: .5rem;
+        border-radius: .5rem;
+        border: 0;
+        cursor: pointer;
+        background-color: darkgray;
     }
 
 
@@ -246,7 +264,7 @@
         border-radius: .5rem;
         border: 0;
         cursor: pointer;
-        background-color: var(--color-three)
+        background-color: var(--color-three);
     }
     
     .carousel__pagination-button--active {

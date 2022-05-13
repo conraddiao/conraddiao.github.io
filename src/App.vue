@@ -111,7 +111,8 @@
   }
   html, body {
     font-size: 18px;
-    margin: 0;
+    margin: auto;
+    width: 805px;
   }
 
   * {

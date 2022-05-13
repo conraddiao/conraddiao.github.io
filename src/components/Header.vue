@@ -81,7 +81,6 @@ header {
     position: fixed;
     top: 0;
     background: white;
-    width: calc(100% - 2rem);
     padding: 1rem;
     padding-bottom: 0;
     cursor: pointer;
