@@ -36,8 +36,7 @@
             Carousel,
             Slide,
             Pagination,
-            Navigation,
-            //VueMobileCarousel
+            Navigation
         },
         props: {
             post: Object,
@@ -49,6 +48,9 @@
             }
         },
         created() {
+            
+        },
+        mounted() {
             let checking = false;
             document.querySelectorAll(".container")
                     .forEach(i => i.addEventListener('scroll', () => {
@@ -60,11 +62,10 @@
                         let currentPageIcon = i.querySelector(`.pagination-container :nth-child(${page + 1})`);
                         currentPageIcon.style.backgroundColor = "var(--color-two)";
                         checking = false;
-                    }, 500);
+                    }, 501);
                 }
-            }))
-        },
-        mounted() {
+            }));
+            
             this.isExpanded = false;
             shave(`#p-${this.post.id} > p`, 22*4, {character: '... more'});
             document.querySelector('.pagination-icon').style.backgroundColor = ('var(--color-two)');
