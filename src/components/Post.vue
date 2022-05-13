@@ -60,7 +60,7 @@
                         let currentPageIcon = i.querySelector(`.pagination-container :nth-child(${page + 1})`);
                         currentPageIcon.style.backgroundColor = "var(--color-two)";
                         checking = false;
-                    }, 100);
+                    }, 500);
                 }
             }))
         },
