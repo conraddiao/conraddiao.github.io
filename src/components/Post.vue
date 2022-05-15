@@ -20,7 +20,8 @@
         </span>
     </div>
 
-    <p @click='click()' v-html="post.copy"></p>
+    <!--<p @click='click()' v-html="post.copy"></p>-->
+    <p v-html="post.copy"></p>
 </div>
 </template>
 
