@@ -69,17 +69,16 @@
             }));
 
             this.isExpanded = false;
-            shave(`#p-${this.post.id} > p`, 22*4, {character: '... more'});
-            document.querySelector('.pagination-icon').style.backgroundColor = ('var(--color-two)');
+            //shave(`#p-${this.post.id} > p`, 22*4, {character: '... more'});
         },
         methods: {
-            click() { 
+            /*click() { 
                 if(!this.isExpanded) {
                     this.$el.querySelector('p > .js-shave-char').style.display = "none";
                     this.$el.querySelector('p > .js-shave').style.display = "inline";
                     this.isExpanded = true;
                 }
-            }
+            }*/
         }
     }
 
