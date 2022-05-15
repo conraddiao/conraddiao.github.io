@@ -27,5 +27,14 @@
         "images" : [
             "https://raw.githubusercontent.com/econraddiao/img/main/_DSC3506.jpg"
         ]
-    }
+    },
+    {
+        "title" : "Castle Peak Tour",
+        "year" : "2021",
+        "type" : "gallery",
+        "copy" : "Pariatur eiusmod quis eiusmod enim consectetur in ad nostrud eu dolor nostrud mollit proident. Anim magna tempor excepteur occaecat in nostrud labore consequat incididunt cupidatat dolor mollit. Deserunt aliquip labore labore enim reprehenderit ea laborum anim occaecat id consequat cillum. Mollit laboris fugiat veniam incididunt qui. Amet adipisicing eu est incididunt nulla excepteur nulla elit et.",
+        "images" : [
+          "https://lh3.googleusercontent.com/pw/AM-JKLXXlbkeiY8SOeMLgEXg1pgofqJESLi4NeiL5YVLPLi5_rnR7a8PknjMZZaoPQV1Qm9O6NS-Y5pU3WcrAi2mDvmSos4xvxk-3hk_5I8HZnHRdeOCWaXYKuFpRFk1MaX2t0Rb0RdDAGgfoqGO_L8YW0wfHQ=w1194-h895-no"
+        ]
+      }
 ]
