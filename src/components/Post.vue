@@ -6,19 +6,19 @@
     <div class="container mandatory-scroll-snapping" 
     dir="ltr"
     v-if="post.images.length">
-        <div class="pagination-container" v-if="post.images.length">
-            <span class="pagination-icon"
-            v-for="i in post.images.length"
-            :key="i" id="i">
-            </span>
-        </div>
         <div class="post-image"
         v-for="image in post.images.length"
         :key="image">
             <img :src="this.post.images[image - 1]" alt="" loading="lazy">
         </div>
     </div>
-    
+
+    <div class="pagination" v-if="post.images.length">
+        <span class="pagination-icon"
+        v-for="i in post.images.length"
+        :key="i" id="i">
+        </span>
+    </div>
 
     <p @click='click()' v-html="post.copy"></p>
 </div>
@@ -27,7 +27,6 @@
 <script>
     import shave from 'shave';
     import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel';
-    //import VueMobileCarousel from './components/VueMobileCarousel.vue';
 
     export default {
         name: 'Post',
@@ -57,15 +56,18 @@
                 if(!checking) {
                     checking = true;
                     setTimeout(() => {
-                        let page = Math.floor(i.scrollLeft / i.clientWidth);
-                        i.querySelectorAll('.pagination-icon').forEach(el => el.style.backgroundColor = 'var(--color-three)');
-                        let currentPageIcon = i.querySelector(`.pagination-container :nth-child(${page + 1})`);
+                        let page = Math.ceil(i.scrollLeft / i.clientWidth) + 1;
+                        let post = i.parentElement;
+                        post.querySelectorAll('.pagination-icon').forEach(el => el.style.backgroundColor = 'darkgrey');
+
+                        let currentPageIcon = post.querySelector(`.pagination :nth-child(${page})`);
                         currentPageIcon.style.backgroundColor = "var(--color-two)";
+
                         checking = false;
-                    }, 501);
+                    }, 100);
                 }
             }));
-            
+
             this.isExpanded = false;
             shave(`#p-${this.post.id} > p`, 22*4, {character: '... more'});
             document.querySelector('.pagination-icon').style.backgroundColor = ('var(--color-two)');
@@ -99,16 +101,13 @@
     }
 
     .container {
+        background-color: var(--color-three);
+        aspect-ratio: 1;
+
         position: relative;
         display: flex;
         overflow-x: scroll;
         overflow-y: hidden;
-        background-color: var(--color-three);
-        width: 100%;
-        aspect-ratio: 1;
-        flex-flow: row nowrap;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
     }
 
     .container::-webkit-scrollbar {
@@ -135,14 +134,15 @@
         display: flex;
     }
 
-    .pagination-container {
+    .pagination {
         display: flex;
-        position: sticky;
+        position: relative;
         height: 27px;
-        top: calc(100% - 54px);
-        left: calc(50% - 54px);
+        bottom: 54px;
+        left: 0;
         justify-content: center;
         list-style: none;
+        min-width: 100%;
     }
 
     .pagination-icon {
@@ -155,120 +155,7 @@
         background-color: darkgray;
     }
 
-
-
-    .carousel {
-        position: relative;
-        text-align: center;
-        box-sizing: border-box;
-        margin: 0;
-    }
-    
-    .carousel * {
-        box-sizing: border-box;
-    }
-
-    .carousel__viewport {
-        overflow: hidden;
-    }
-
-    .carousel__track {
-        display: flex;
-        margin: 0;
-        padding: 0;
-        position: relative;
-    }
-    
-    .carousel__slide {
-        width: 100%;
-        aspect-ratio: 1;
-        scroll-snap-stop: auto;
-        flex-shrink: 0;
-        margin: 0;
-        padding: 0.5rem;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .carousel__item {
-        width: 100%;
-        height: 100%;
-        border-radius: 1rem;
-        background-color: var(--color-three);
-        font-size: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .carousel__item > img {
-        max-height: 100%;
-        max-width: 100%;
-        object-fit: contain;
-    }
-
-    .carousel__next,
-    .carousel__prev {
-        background-color: transparent;
-        border-radius: 1rem;
-        width: 1.5rem;
-        height: 1.5rem;
-        text-align: center;
-        font-size: calc(var(--vc-nav-width) * 2 / 3);padding:0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        border: 0;
-        cursor: pointer;
-        box-sizing: content-box;
-        fill: var(--color-two);
-        top: calc(50% - 0.50rem);
-    }
-
-    .carousel__prev {
-        left: 1rem;
-    }
-        
-    .carousel__next {
-        right: 1rem;
-    }
-
-    .carousel__prev .carousel__icon {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    } 
-
-    .carousel__next .carousel__icon {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    } 
-
-    .carousel__pagination {
-        display: flex;
-        position: absolute;
-        bottom: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        justify-content: center;
-        list-style: none;
-    }
-
-    .carousel__pagination-button {
-        margin: .5rem;
-        width: .5rem;
-        height: .5rem;
-        border-radius: .5rem;
-        border: 0;
-        cursor: pointer;
-        background-color: var(--color-three);
-    }
-    
-    .carousel__pagination-button--active {
+    .pagination-icon:first-child {
         background-color: var(--color-two);
     }
 
