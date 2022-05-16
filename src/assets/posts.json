@@ -29,13 +29,74 @@
         ]
     },
     {
-        "title" : "Castle Peak Tour",
-        "year" : "2021",
+        "title" : "UG202 X1",
+        "year" : "2017",
         "type" : "gallery",
-        "copy" : "Pariatur eiusmod quis eiusmod enim consectetur in ad nostrud eu dolor nostrud mollit proident. Anim magna tempor excepteur occaecat in nostrud labore consequat incididunt cupidatat dolor mollit. Deserunt aliquip labore labore enim reprehenderit ea laborum anim occaecat id consequat cillum. Mollit laboris fugiat veniam incididunt qui. Amet adipisicing eu est incididunt nulla excepteur nulla elit et.",
+        "copy" : "Undergraduate architecture project.",
         "images" : [
-          "https://lh3.googleusercontent.com/pw/AM-JKLXXlbkeiY8SOeMLgEXg1pgofqJESLi4NeiL5YVLPLi5_rnR7a8PknjMZZaoPQV1Qm9O6NS-Y5pU3WcrAi2mDvmSos4xvxk-3hk_5I8HZnHRdeOCWaXYKuFpRFk1MaX2t0Rb0RdDAGgfoqGO_L8YW0wfHQ=w1194-h895-no",
-          "https://lh3.googleusercontent.com/p1UO3ebmwhavb8yQZPtZON9B3rW65olmZ3EAG7DSeeohRoQUPXXcNiHavqKGkCMhw3Gl6CRSstMeA41zTCw=w330-h440-rw"
+            "https://raw.githubusercontent.com/econraddiao/img/5f179d5df39332c2885741e898fd0d78777cc362/202_X1_1.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/5f179d5df39332c2885741e898fd0d78777cc362/202_X1_2.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/5f179d5df39332c2885741e898fd0d78777cc362/202_X1_3.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/5f179d5df39332c2885741e898fd0d78777cc362/202_X1_4.jpg"
         ]
-      }
+    },
+    {
+        "title" : "UG202 X3",
+        "year" : "2017",
+        "type" : "gallery",
+        "copy" : "Undergraduate architecture project.",
+        "images" : [
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X3_6.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X3_1.jpg"
+        ]
+    },
+    {
+        "title" : "Villa Sul Lago, Giuseppe Terragni",
+        "year" : "2017",
+        "type" : "gallery",
+        "copy" : "Undergraduate architecture project.",
+        "images" : [
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X4_1.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X4_2.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X4_3.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X4_4.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X4_5.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X4_6.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/202_X4_7.jpg"
+
+
+        ]
+    },
+    {
+        "title" : "UG1 X2",
+        "year" : "2018",
+        "type" : "gallery",
+        "copy" : "Undergraduate architecture project.",
+        "images" : [
+            "https://raw.githubusercontent.com/econraddiao/img/main/UG1_X2_1.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/UG1_X2_2.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/UG1_X2_3.jpg"
+        ]
+    },
+    {
+        "title" : "UG2 X2",
+        "year" : "2018",
+        "type" : "gallery",
+        "copy" : "Undergraduate architecture project.",
+        "images" : [
+            "https://raw.githubusercontent.com/econraddiao/img/main/UG2_X2_1.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/UG2_X2_2.jpg",
+            "https://raw.githubusercontent.com/econraddiao/img/main/UG2_X2_3.jpg"
+
+        ]
+    },
+    {
+        "title" : "UG2 X3",
+        "year" : "2018",
+        "type" : "gallery",
+        "copy" : "Undergraduate architecture project.",
+        "images" : [
+            "https://raw.githubusercontent.com/econraddiao/img/main/UG2_X3_1.jpg"
+        ]
+    }
 ]
