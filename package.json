@@ -2,7 +2,6 @@
   "name": "website_vue",
   "version": "0.0.0",
   "proxy": "http://localhost:4000",
-  
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,12 +12,12 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/vue-fontawesome": "^3.0.0-5",
-    "vue": "^3.2.33",
-    "shave": "^2.5.10"
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "shave": "^2.5.10",
+    "vue": "^3.5.12"
   },
   "devDependencies": {
-    "vite": "^2.9.9",
-    "@vitejs/plugin-vue": "^1.9.3"
+    "@vitejs/plugin-vue": "^1.10.2",
+    "vite": "^2.9.18"
   }
 }
