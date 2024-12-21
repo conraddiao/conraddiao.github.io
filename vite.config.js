@@ -24,6 +24,18 @@ export default defineConfig({
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]'
       }
+    },
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true
+    }
+  },
+  optimizeDeps: {
+    include: ['vue']
+  },
+  resolve: {
+    alias: {
+      'vue': 'vue/dist/vue.esm-bundler.js'
     }
   }
 })
