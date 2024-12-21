@@ -6,9 +6,17 @@ import { faTwitterSquare, faLinkedin, faInstagramSquare } from '@fortawesome/fre
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import shave from 'shave'
 
+// Add icons to the library
 library.add(faTwitterSquare, faLinkedin, faInstagramSquare)
 
+// Create Vue app
 const app = createApp(App)
+
+// Register global components
 app.component('font-awesome-icon', FontAwesomeIcon)
-app.provide('shave', shave)
+
+// Register global properties
+app.config.globalProperties.$shave = shave
+
+// Mount the app
 app.mount('#app')
