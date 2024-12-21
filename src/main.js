@@ -1,4 +1,3 @@
-import * as Vue from 'vue';
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -10,5 +9,6 @@ import shave from 'shave'
 library.add(faTwitterSquare, faLinkedin, faInstagramSquare)
 
 const app = createApp(App)
-app.component('font-awesome-icon', FontAwesomeIcon).provide('shave', shave)
-const vm = app.mount('#app')
+app.component('font-awesome-icon', FontAwesomeIcon)
+app.provide('shave', shave)
+app.mount('#app')
