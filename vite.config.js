@@ -15,14 +15,14 @@ export default defineConfig({
   ],
   base: '/econraddiao.github.io/',
   build: {
-    outDir: "docs",
-    assetsDir: "assets",
+    outDir: 'docs',
+    assetsDir: 'assets',
     rollupOptions: {
-      external: ['vue3-carousel'],
       output: {
-        globals: {
-          'vue3-carousel': 'vue3Carousel'
-        }
+        format: 'es',
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]'
       }
     }
   }
