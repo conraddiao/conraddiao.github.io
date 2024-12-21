@@ -13,7 +13,7 @@ export default defineConfig({
       }
     }
   ],
-  base: '/econraddiao.github.io/',
+  base: './',
   build: {
     outDir: 'docs',
     assetsDir: 'assets',
