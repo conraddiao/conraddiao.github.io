@@ -12,6 +12,7 @@
   import Footer from './components/Footer.vue'
   import honorifics from './assets/honorifics.json'
   import posts from './assets/posts.json'
+  import { computed } from 'vue'
   export default {
     name: 'App',
     components: {
@@ -25,7 +26,7 @@
     },
     provide() {
       return {
-        honorifics: Vue.computed(() => this.honorifics)
+        honorifics: computed(() => this.honorifics)
       }
     },
     data() {
