@@ -16,19 +16,18 @@ export default defineConfig({
     {
       name: 'copy-nojekyll',
       writeBundle() {
-        fs.writeFileSync('dist/.nojekyll', '')
+        fs.writeFileSync('docs/.nojekyll', '')
       }
     }
   ],
   base: '/conraddiao.github.io/',
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'vue': 'vue/dist/vue.esm-bundler.js'
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     emptyOutDir: true,
     minify: 'terser',
     sourcemap: true,

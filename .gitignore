@@ -10,8 +10,8 @@ lerna-debug.log*
 # Dependencies
 node_modules
 .DS_Store
-dist
-dist-ssr
+docs
+docs-ssr
 coverage
 *.local
 
@@ -26,8 +26,8 @@ coverage
 *.sw?
 
 # Build output
-/dist/*
-!/dist/.nojekyll
+/docs/*
+!/docs/.nojekyll
 
 # Environment variables
 .env
