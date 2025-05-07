@@ -26,8 +26,8 @@ coverage
 *.sw?
 
 # Build output
-/docs/*
-!/docs/.nojekyll
+/dist/*
+!/dist/.nojekyll
 
 # Environment variables
 .env

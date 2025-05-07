@@ -16,7 +16,7 @@ export default defineConfig({
     {
       name: 'copy-nojekyll',
       writeBundle() {
-        fs.writeFileSync('docs/.nojekyll', '')
+        fs.writeFileSync('dist/.nojekyll', '')
       }
     }
   ],
