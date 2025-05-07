@@ -1,0 +1,24 @@
+footer {
+    padding: 1rem;
+  }
+  
+  .footer-heading {
+    text-align: center;
+  }
+  
+  .footer-byline {
+    display: flex;
+    flex-flow: row wrap-reverse;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.875rem;
+  }
+  
+  .copywrite {
+    color: var(--color-three);
+  }
+  
+  .headshot {
+    /* Add styling or content if needed */
+    margin: 1rem 0;
+  }

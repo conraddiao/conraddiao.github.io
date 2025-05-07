@@ -1,0 +1,16 @@
+.posts {
+  z-index: 1;
+  margin-top: calc(307px + 0.5rem);
+}
+
+@media screen and (max-width: 805px) {
+  .posts {
+    margin-top: calc(307px + 0.5rem);
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .posts {
+    margin-top: calc(229px + 0.5rem);
+  }
+}

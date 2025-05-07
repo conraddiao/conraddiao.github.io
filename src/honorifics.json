@@ -1,34 +1,34 @@
 [
     {
-        "title" : "__marketer",
+        "title" : "___operator",
         "color" : "blue"
     },
     {
-        "title" : "_developer",
+        "title" : "__developer",
         "color" : "fuchsia"
     },
     {
-        "title" : "_architect",
+        "title" : "__architect",
         "color" : "black"
     },
     {
-        "title" : "____singer",
+        "title" : "_____singer",
         "color" : "red"
     },
     {
-        "title" : "____artist",
+        "title" : "___optimist",
         "color" : "green"
     },
     {
-        "title" : "_____skier",
+        "title" : "______skier",
         "color" : "lavender"
     },
     {
-        "title" : "__futurist",
+        "title" : "____realist",
         "color" : "cyan"
     },
     {
-        "title" : "shitposter",
+        "title" : "product guy",
         "color" : "saddlebrown"
     }
 ]

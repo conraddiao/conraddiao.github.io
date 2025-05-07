@@ -1,0 +1,102 @@
+:root {
+  --color-bg: #3c3c3c;
+  --color-text: #e0e0e0;
+  --color-accent: #EC5829;
+  --color-muted: #333;
+  --font-body: 'IBM Plex Serif', serif;
+  --font-heading: 'IBM Plex Serif', serif;
+}
+
+html, body {
+  /* margin: 0; */
+  /* padding: 0; */
+  font-size: 18px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 805px;
+  margin-inline: auto;
+}
+
+* {
+  box-sizing: border-box;
+  /* margin: 0; */
+  /* padding: 0; */
+}
+
+h1 {
+  font-size: 2rem;
+  font-family: var(--font-heading);
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+}
+
+h1 > span:first-child {
+  color: var(--color-accent);
+}
+
+@media screen and (max-width: 435px) {
+  h1 {
+    font-size: 1.65rem;
+  }
+}
+
+p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+hr {
+  margin-top: 1rem;
+  border: 1px solid var(--color-muted);
+  width: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  background-color: var(--color-bg);
+  padding: 1rem;
+  padding-bottom: 0;
+  cursor: pointer;
+  isolation: isolate;
+  z-index: 11;
+  width: 100%;
+  max-width: 805px;
+}
+
+.slider {
+  overflow: hidden;
+  transition: max-height 0.6s ease-in-out, margin 0.6s ease-in-out;
+}
+
+.closed {
+  max-height: 0;
+  margin: 0;
+}
+
+.open {
+  max-height: 300px;
+}

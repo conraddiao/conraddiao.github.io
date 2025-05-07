@@ -1,8 +1,0 @@
-[build]
-  publish = "docs"
-  command = "npm run build"
-
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Content-Type = "application/javascript"

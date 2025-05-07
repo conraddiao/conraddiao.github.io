@@ -1,9 +1,17 @@
 [
     {
-        "title" : "This Website (woah, meta)",
-        "year" : "2021",
+        "title" : "Overgraft (in-progress)",
+        "year" : "2025",
         "type" : "gallery",
-        "copy" : "I'm no professional developer, but I know enough to be dangerous, and I like to keep what few tools I've got in the shed sharp. This is my fourth re-vamp of my personal website; I've finally used a Framework, in this case Vue, after learning the rudiments of web development.",
+        "copy" : "Get platform specific with your social content, and stop relying on the default opengraph link preview.",
+        "images" : [
+        ]
+    },
+    {
+        "title" : "Preresign (in-progress)",
+        "year" : "2025",
+        "type" : "gallery",
+        "copy" : "Building something great requires great people. Sometimes they leave. Keep on top of leading indicators of resignation and adapt accordingly.",
         "images" : [
         ]
     },
@@ -20,12 +28,24 @@
           ]
     },
     {
-        "title" : "Down By The River",
-        "year" : "2017",
+        "title" : "UG2 X2",
+        "year" : "2018",
         "type" : "gallery",
-        "copy" : "After a long drive and a short night, a Wisconsin fog said hello.",
+        "copy" : "Undergraduate architecture project.",
         "images" : [
-            "https://raw.githubusercontent.com/conraddiao/img/main/_DSC3506.jpg"
+            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_1.jpg",
+            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_2.jpg",
+            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_3.jpg"
+
+        ]
+    },
+    {
+        "title" : "UG2 X3",
+        "year" : "2018",
+        "type" : "gallery",
+        "copy" : "Undergraduate architecture project.",
+        "images" : [
+            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X3_1.jpg"
         ]
     },
     {
@@ -76,27 +96,6 @@
             "https://raw.githubusercontent.com/conraddiao/img/main/UG1_X2_1.jpg",
             "https://raw.githubusercontent.com/conraddiao/img/main/UG1_X2_2.jpg",
             "https://raw.githubusercontent.com/conraddiao/img/main/UG1_X2_3.jpg"
-        ]
-    },
-    {
-        "title" : "UG2 X2",
-        "year" : "2018",
-        "type" : "gallery",
-        "copy" : "Undergraduate architecture project.",
-        "images" : [
-            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_1.jpg",
-            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_2.jpg",
-            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_3.jpg"
-
-        ]
-    },
-    {
-        "title" : "UG2 X3",
-        "year" : "2018",
-        "type" : "gallery",
-        "copy" : "Undergraduate architecture project.",
-        "images" : [
-            "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X3_1.jpg"
         ]
     }
 ]
