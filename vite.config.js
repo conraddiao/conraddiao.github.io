@@ -20,7 +20,7 @@ export default defineConfig({
       }
     }
   ],
-  base: '/econraddiao.github.io/',
+  base: '/conraddiao.github.io/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

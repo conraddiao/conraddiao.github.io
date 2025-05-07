@@ -1,6 +1,7 @@
 <script>
     import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
     import Honorific from './Honorific.vue'
+``    
     export default {
         name: 'Header',
         props: {

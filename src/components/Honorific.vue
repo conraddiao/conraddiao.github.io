@@ -4,18 +4,21 @@
         inject: ['honorifics'],
         data() {
             return {
-                btitle: String,
-                bcolor: {backgroundColor: String}
+                btitle: '',
+                bcolor: {backgroundColor: ''}
             }
         },
         mounted() {
-            setInterval(() => {
-                let index = Math.floor(Math.random() * this.honorifics.value.length);
-                this.btitle = this.honorifics.value[index].title;
-                this.bcolor.backgroundColor = this.honorifics.value[index].color;
-            }, 200);
-            
+    setInterval(() => {
+        const list = this.honorifics?.value;
+        if (list && list.length) {
+            let index = Math.floor(Math.random() * list.length);
+            this.btitle = list[index].title;
+            this.bcolor.backgroundColor = list[index].color;
         }
+    }, 200);
+}
+
     }
 </script>
 
