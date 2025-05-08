@@ -5,25 +5,21 @@
   --color-muted: #333;
   --font-body: 'IBM Plex Serif', serif;
   --font-heading: 'IBM Plex Serif', serif;
+  max-width: 808px;
 }
 
 html, body {
-  /* margin: 0; */
-  /* padding: 0; */
   font-size: 18px;
+  font-family: var(--font-body);
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-body);
+  margin-inline: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  max-width: 805px;
-  margin-inline: auto;
 }
 
 * {
   box-sizing: border-box;
-  /* margin: 0; */
-  /* padding: 0; */
 }
 
 h1 {
@@ -64,8 +60,8 @@ img {
 
 hr {
   margin-top: 1rem;
+  margin-bottom: 0;
   border: 1px solid var(--color-muted);
-  width: 100%;
 }
 
 .app {
@@ -78,13 +74,10 @@ hr {
   position: fixed;
   top: 0;
   background-color: var(--color-bg);
-  padding: 1rem;
-  padding-bottom: 0;
   cursor: pointer;
   isolation: isolate;
   z-index: 11;
-  width: 100%;
-  max-width: 805px;
+  width: 808px;
 }
 
 .slider {
