@@ -1,34 +1,34 @@
 [
     {
-        "title" : "___operator",
-        "color" : "blue"
+      "title": "___operator",
+      "color": "mediumblue"
     },
     {
-        "title" : "__developer",
-        "color" : "fuchsia"
+      "title": "__developer",
+      "color": "orchid"
     },
     {
-        "title" : "__architect",
-        "color" : "black"
+      "title": "__architect",
+      "color": "dimgray"
     },
     {
-        "title" : "_____singer",
-        "color" : "red"
+      "title": "_____singer",
+      "color": "firebrick"
     },
     {
-        "title" : "___optimist",
-        "color" : "green"
+      "title": "___optimist",
+      "color": "seagreen"
     },
     {
-        "title" : "______skier",
-        "color" : "lavender"
+      "title": "______skier",
+      "color": "thistle"
     },
     {
-        "title" : "____realist",
-        "color" : "cyan"
+      "title": "____realist",
+      "color": "lightseagreen"
     },
     {
-        "title" : "product_guy",
-        "color" : "saddlebrown"
+      "title": "product_guy",
+      "color": "chocolate"
     }
-]
+  ]  
