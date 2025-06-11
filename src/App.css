@@ -18,6 +18,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.App {
+  padding: 0.5rem;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -31,6 +35,16 @@ h1 {
 
 h1 > span:first-child {
   color: var(--color-accent);
+}
+
+#header-title {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+#header-title > span {
+  display: flex;
 }
 
 @media screen and (max-width: 435px) {
@@ -77,7 +91,7 @@ hr {
   cursor: pointer;
   isolation: isolate;
   z-index: 11;
-  width: 808px;
+  max-width: 808px;
 }
 
 .slider {

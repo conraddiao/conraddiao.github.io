@@ -30,12 +30,13 @@ const Header = ({ honorifics }) => {
 
   return (
     <header className="header">
-      <h1>
+      <h1 id="header-title" className='display-flex'>
         <span> ~&nbsp;hi,</span>
         <span> I'm </span>
         <span><a href="#">@conraddiao</a></span>
-        <span>, the&nbsp;</span>
-        <Honorific honorifics={honorifics} />
+        <span>,&nbsp;</span>
+        <span>the&nbsp;</span>
+        <span><Honorific honorifics={honorifics} /></span>
         <span>.&nbsp;~</span>
       </h1>
       <p className={`slider ${isCollapsed ? 'closed' : 'open'}`}>

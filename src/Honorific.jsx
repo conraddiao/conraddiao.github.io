@@ -1,19 +1,28 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 const Honorific = ({ honorifics }) => {
   const [title, setTitle] = useState('');
   const [bgColor, setBgColor] = useState('');
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (honorifics && honorifics.length) {
-        const index = Math.floor(Math.random() * honorifics.length);
-        setTitle(honorifics[index].title);
-        setBgColor(honorifics[index].color);
-      }
-    }, 200);
+    let lastTime = performance.now();
+    let animationFrame;
 
-    return () => clearInterval(interval);
+    const tick = (now) => {
+      if (now - lastTime >= 200) {
+        if (honorifics && honorifics.length) {
+          const index = Math.floor(Math.random() * honorifics.length);
+          setTitle(honorifics[index].title);
+          setBgColor(honorifics[index].color);
+        }
+        lastTime = now;
+      }
+      animationFrame = requestAnimationFrame(tick);
+    };
+
+    animationFrame = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(animationFrame);
   }, [honorifics]);
 
   return (
