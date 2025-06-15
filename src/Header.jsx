@@ -4,20 +4,28 @@ import {
   faLinkedin,
   faInstagramSquare,
   faTwitterSquare,
+  faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 import Honorific from './Honorific';
+// import { headerHeight, setHeaderHeight } from './App';
+import { useRef } from 'react';
 
 const Header = ({ honorifics }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const headerRef = useRef(null);
 
   useEffect(() => {
     let ticking = false;
 
+    // Handles scroll events to toggle header collapse state
     const handleScroll = () => {
+      // Prevents multiple rAF calls while scrolling rapidly
       if (!ticking) {
         window.requestAnimationFrame(() => {
+          // Collapse header if user has scrolled down from top
           const shouldCollapse = window.scrollY !== 0;
           setIsCollapsed(shouldCollapse);
+          // Allow future rAF invocations
           ticking = false;
         });
         ticking = true;
@@ -29,7 +37,9 @@ const Header = ({ honorifics }) => {
   }, []);
 
   return (
-    <header className="header" id="header">
+    <header
+    ref={headerRef}
+    className="header" id="header">
       <h1 id="header-title" className='display-flex'>
         <span> ~&nbsp;hi,</span>
         <span> I'm </span>
@@ -52,11 +62,13 @@ const Header = ({ honorifics }) => {
         <br />
         B.S. Architecture @ <a href="https://taubmancollege.umich.edu/">Michigan</a>.
         <br />
+        C.O.Re. @ <a href="https://online.hbs.edu/courses/core/">HBS Online</a>.
+        <br />
         <br />
         Find me on&nbsp;
         <a href="https://www.linkedin.com/in/conraddiao/"><FontAwesomeIcon icon={faLinkedin} size="1x" /></a>,&nbsp;
         <a href="https://www.instagram.com/conraddiao/"><FontAwesomeIcon icon={faInstagramSquare} size="1x" /></a>,&nbsp;
-        <a href="https://twitter.com/conraddiao/"><FontAwesomeIcon icon={faTwitterSquare} size="1x" /></a>.
+        <a href="https://github.com/conraddiao/"><FontAwesomeIcon icon={faGithub} size="1x" /></a>.
       </p>
       <hr />
     </header>

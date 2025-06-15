@@ -1,17 +1,17 @@
 [
     {
-        "title" : "Overgraft (in-progress)",
-        "year" : "2025",
-        "type" : "gallery",
-        "copy" : "Get platform specific with your social content, and stop relying on the default opengraph link preview.",
-        "images" : [
-        ]
-    },
-    {
         "title" : "Preresign (in-progress)",
         "year" : "2025",
         "type" : "gallery",
         "copy" : "Building something great requires great people. Sometimes they leave. Keep on top of leading indicators of resignation and adapt accordingly.",
+        "images" : [
+        ]
+    },
+    {
+        "title" : "Overgraft (in-progress)",
+        "year" : "2025",
+        "type" : "gallery",
+        "copy" : "Get platform specific with your social content, and stop relying on the default opengraph link preview.",
         "images" : [
         ]
     },
