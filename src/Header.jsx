@@ -29,7 +29,7 @@ const Header = ({ honorifics }) => {
   }, []);
 
   return (
-    <header className="header">
+    <header className="header" id="header">
       <h1 id="header-title" className='display-flex'>
         <span> ~&nbsp;hi,</span>
         <span> I'm </span>
