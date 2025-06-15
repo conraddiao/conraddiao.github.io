@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLinkedin,
   faInstagramSquare,
-  faTwitterSquare,
   faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 import Honorific from './Honorific';
@@ -41,7 +40,7 @@ const Header = ({ honorifics }) => {
     ref={headerRef}
     className="header" id="header">
       <h1 id="header-title" className='display-flex'>
-        <span> ~&nbsp;hi,</span>
+        <span> <a href="#">~&nbsp;hi,</a></span>
         <span> I'm </span>
         <span><a href="#">@conraddiao</a></span>
         <span>,&nbsp;</span>
@@ -61,8 +60,6 @@ const Header = ({ honorifics }) => {
         <br />
         <br />
         B.S. Architecture @ <a href="https://taubmancollege.umich.edu/">Michigan</a>.
-        <br />
-        C.O.Re. @ <a href="https://online.hbs.edu/courses/core/">HBS Online</a>.
         <br />
         <br />
         Find me on&nbsp;

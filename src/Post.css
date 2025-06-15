@@ -31,10 +31,11 @@
   .post-image {
     scroll-snap-align: center;
     display: flex;
+    flex-basis: 100%;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    aspect-ratio: 1;
+    flex-shrink: 0;
+    object-fit: contain;
   }
   
   .post-image img {
