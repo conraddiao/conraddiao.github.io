@@ -49,8 +49,10 @@ const Header = ({ honorifics }) => {
         <span>.&nbsp;~</span>
       </h1>
       <p className={`slider ${isCollapsed ? 'closed' : 'open'}`}>
-        Looking for Product Management and Product Strategy roles in service of important missions.
+        Product Manager with Full-stack Operations, Growth, and Design background.
         <br />
+        <br />
+        Product @ <a href="https://www.getonecrew.com/">OneCrew</a>.
         <br />
         Product @ <a href="https://www.fiercehealthcare.com/health-tech/primary-care-player-forward-shutters-after-raising-400m-rolling-out-carepods">Forward</a>.
         <br />
