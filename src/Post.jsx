@@ -1,6 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Post.css';
 
+// Minimal markdown -> HTML converter to support basic markdown in posts.json (links, newlines, paragraphs)
+const markdownToHtml = (md) => {
+  if (!md) return '';
+  const escapeHtml = (s) =>
+    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  let text = escapeHtml(md);
+  // convert markdown links [text](url)
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  // paragraphs (double newline) and single newlines -> <br>
+  text = '<p>' + text.replace(/\n{2,}/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+  return text;
+};
+
 const Post = ({ post }) => {
   const containerRef = useRef(null);
   const paginationRef = useRef(null);
@@ -48,7 +62,7 @@ const Post = ({ post }) => {
         {post.title}, <span className="postDate">{post.year}.</span>
       </h3>
 
-      {post.images.length > 0 && (
+      {post.images && post.images.length > 0 && (
         <>
           <div
             className="container mandatory-scroll-snapping"
@@ -77,7 +91,7 @@ const Post = ({ post }) => {
         </>
       )}
 
-      <p dangerouslySetInnerHTML={{ __html: post.copy }} />
+      <p dangerouslySetInnerHTML={{ __html: markdownToHtml(post.copy) }} />
     </div>
   );
 };
