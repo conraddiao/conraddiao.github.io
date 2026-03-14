@@ -66,4 +66,34 @@
   .pagination-icon:first-child {
     background-color: var(--color-text);
   }
-  
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.post-image--idle {
+  background-color: var(--color-text);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+.post-image--loaded,
+.post-image--error {
+  animation: none;
+  background-color: transparent;
+}
+
+@keyframes image-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.post-image__img--loaded {
+  animation: image-fade-in 0.3s ease-in both;
+}
+
+.post-image--error::after {
+  content: '—';
+  color: darkgray;
+  font-size: 2rem;
+}
