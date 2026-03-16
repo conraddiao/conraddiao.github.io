@@ -18,9 +18,30 @@ const markdownToHtml = (md) => {
 const Post = ({ post }) => {
   const containerRef = useRef(null);
   const paginationRef = useRef(null);
+  const postRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [postVisible, setPostVisible] = useState(false);
+  const [imageStates, setImageStates] = useState(
+    () => (post.images || []).map(() => 'idle')
+  );
 
   const isDesktop = () => window.innerWidth >= 768;
+
+  useEffect(() => {
+    const el = postRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPostVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -45,6 +66,20 @@ const Post = ({ post }) => {
     return () => container.removeEventListener('scroll', onScroll);
   }, []);
 
+  const handleLoad = (index) =>
+    setImageStates(prev => {
+      const next = [...prev];
+      next[index] = 'loaded';
+      return next;
+    });
+
+  const handleError = (index) =>
+    setImageStates(prev => {
+      const next = [...prev];
+      next[index] = 'error';
+      return next;
+    });
+
   const handleDotClick = (index) => {
     if (!isDesktop()) return;
     const container = containerRef.current;
@@ -57,7 +92,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className="post" id={`p-${post.id}`}>
+    <div className="post" id={`p-${post.id}`} ref={postRef}>
       <h3>
         {post.title}, <span className="postDate">{post.year}.</span>
       </h3>
@@ -69,11 +104,26 @@ const Post = ({ post }) => {
             dir="ltr"
             ref={containerRef}
           >
-            {post.images.map((image, index) => (
-              <div className="post-image" key={index}>
-                <img src={image} alt="" loading="lazy" />
-              </div>
-            ))}
+            {post.images.map((image, index) => {
+              const isActive = index === activeIndex;
+              const state = imageStates[index];
+              const src = postVisible ? image : undefined;
+
+              return (
+                <div className={`post-image post-image--${state}`} key={index}>
+                  {src && (
+                    <img
+                      src={src}
+                      alt=""
+                      loading={isActive ? 'eager' : 'lazy'}
+                      onLoad={() => handleLoad(index)}
+                      onError={() => handleError(index)}
+                      className={state === 'loaded' ? 'post-image__img--loaded' : ''}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           <div className="pagination" ref={paginationRef}>
