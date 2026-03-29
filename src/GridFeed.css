@@ -1,0 +1,88 @@
+.grid-feed {
+  padding: 0.5rem;
+}
+
+.grid-feed-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0 1rem;
+}
+
+.grid-feed-tag {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-muted);
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.grid-feed-tag:hover {
+  border-color: var(--color-accent);
+}
+
+.grid-feed-tag.active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.grid-feed-section {
+  margin-bottom: 2rem;
+}
+
+.grid-feed-section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.grid-feed-section-label {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.grid-feed-divider {
+  flex: 1;
+  border: none;
+  border-top: 1px solid var(--color-muted);
+  margin: 0;
+}
+
+.grid-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.grid-feed-cell .post {
+  max-width: none;
+}
+
+.grid-feed-cell .post > h3 {
+  font-size: 1rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.grid-feed-cell .post > p {
+  font-size: 0.85rem;
+}
+
+.grid-feed-cell .container {
+  aspect-ratio: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .grid-feed-grid {
+    grid-template-columns: 1fr;
+  }
+}
