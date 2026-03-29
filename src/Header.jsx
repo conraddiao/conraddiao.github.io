@@ -14,26 +14,50 @@ const Header = ({ honorifics }) => {
   const headerRef = useRef(null);
 
   useEffect(() => {
-    let ticking = false;
+    let touchStartY = 0;
 
-    // Handles scroll events to toggle header collapse state
-    const handleScroll = () => {
-      // Prevents multiple rAF calls while scrolling rapidly
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // Collapse header if user has scrolled down from top
-          const shouldCollapse = window.scrollY !== 0;
-          setIsCollapsed(shouldCollapse);
-          // Allow future rAF invocations
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+    if (!isCollapsed) {
+      // EXPANDED: lock page scroll, listen for collapse gesture
+      document.body.style.overflow = 'hidden';
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      const collapse = () => setIsCollapsed(true);
+
+      const handleWheel = (e) => { if (e.deltaY > 0) collapse(); };
+      const handleTouchStart = (e) => { touchStartY = e.touches[0].clientY; };
+      const handleTouchEnd = (e) => {
+        if (e.changedTouches[0].clientY - touchStartY < -30) collapse();
+      };
+
+      const headerEl = headerRef.current;
+      window.addEventListener('wheel', handleWheel, { passive: true });
+      window.addEventListener('touchstart', handleTouchStart, { passive: true });
+      window.addEventListener('touchend', handleTouchEnd, { passive: true });
+      if (headerEl) headerEl.addEventListener('click', collapse);
+
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('wheel', handleWheel);
+        window.removeEventListener('touchstart', handleTouchStart);
+        window.removeEventListener('touchend', handleTouchEnd);
+        if (headerEl) headerEl.removeEventListener('click', collapse);
+      };
+    } else {
+      // COLLAPSED: watch for scroll-to-top to re-expand
+      let ticking = false;
+      const handleScroll = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            if (window.scrollY === 0) setIsCollapsed(false);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [isCollapsed]);
 
   return (
     <header
