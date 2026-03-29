@@ -1,18 +1,56 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Post.css';
 
-// Minimal markdown -> HTML converter to support basic markdown in posts.json (links, newlines, paragraphs)
+// Markdown -> HTML converter supporting links, images, videos, code blocks, inline code, bold, italic
 const markdownToHtml = (md) => {
   if (!md) return '';
+
   const escapeHtml = (s) =>
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  let text = escapeHtml(md);
-  // convert markdown links [text](url)
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-  // paragraphs (double newline) and single newlines -> <br>
-  text = '<p>' + text.replace(/\n{2,}/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
-  return text;
+  const isVideoUrl = (url) => /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url);
+
+  const processInline = (escaped) => {
+    let t = escaped;
+    // Inline code (backticks)
+    t = t.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+    // Images and videos: ![alt](url)
+    t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) =>
+      isVideoUrl(url)
+        ? `<video src="${url}" controls playsinline></video>`
+        : `<img src="${url}" alt="${alt}" loading="lazy">`
+    );
+    // Links: [text](url)
+    t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    // Bold: **text**
+    t = t.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+    // Italic: *text*
+    t = t.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+    return t;
+  };
+
+  const html = [];
+  // Split out fenced code blocks first so their content is not processed as markdown
+  const parts = md.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
+
+  for (const part of parts) {
+    const codeBlock = part.match(/^```(\w+)?\n([\s\S]*)```$/);
+    if (codeBlock) {
+      const lang = codeBlock[1] || '';
+      const code = escapeHtml(codeBlock[2]);
+      html.push(`<pre><code${lang ? ` class="language-${lang}"` : ''}>${code}</code></pre>`);
+    } else {
+      const paragraphs = part.split(/\n{2,}/);
+      for (const para of paragraphs) {
+        const trimmed = para.trim();
+        if (!trimmed) continue;
+        const content = processInline(escapeHtml(trimmed)).replace(/\n/g, '<br>');
+        html.push(`<p>${content}</p>`);
+      }
+    }
+  }
+
+  return html.join('');
 };
 
 const Post = ({ post }) => {
@@ -141,7 +179,7 @@ const Post = ({ post }) => {
         </>
       )}
 
-      <p dangerouslySetInnerHTML={{ __html: markdownToHtml(post.copy) }} />
+      <div className="post-copy" dangerouslySetInnerHTML={{ __html: markdownToHtml(post.copy) }} />
     </div>
   );
 };
