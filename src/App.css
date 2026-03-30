@@ -115,6 +115,22 @@ hr {
   max-height: 300px;
 }
 
+.header-subheader {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.header-subheader > p {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-subheader > .grid-feed-filters {
+  flex-shrink: 0;
+  align-content: flex-start;
+}
+
 .posts {
   padding: 0.5rem;
 }
