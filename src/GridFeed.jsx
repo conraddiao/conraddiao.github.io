@@ -17,14 +17,14 @@ const GridFeed = ({ posts }) => {
     ? posts.filter(post => (post.tags || []).includes(activeTag))
     : posts;
 
-  const groupedByTag = useMemo(() => {
+  const groupedByYear = useMemo(() => {
     const groups = {};
     filteredPosts.forEach(post => {
-      const tag = (post.tags || ['other'])[0];
-      if (!groups[tag]) groups[tag] = [];
-      groups[tag].push(post);
+      const year = post.year || 'Unknown';
+      if (!groups[year]) groups[year] = [];
+      groups[year].push(post);
     });
-    return groups;
+    return Object.entries(groups).sort(([a], [b]) => b.localeCompare(a));
   }, [filteredPosts]);
 
   return (
@@ -47,19 +47,25 @@ const GridFeed = ({ posts }) => {
         ))}
       </div>
 
-      {Object.entries(groupedByTag).map(([tag, tagPosts]) => (
-        <div key={tag} className="grid-feed-section">
-          <div className="grid-feed-section-header">
-            <span className="grid-feed-section-label">{tag}</span>
-            <hr className="grid-feed-divider" />
-          </div>
-          <div className="grid-feed-grid">
-            {tagPosts.map(post => (
-              <div key={post.title} className="grid-feed-cell">
+      {groupedByYear.map(([year, yearPosts]) => (
+        <div key={year} className="timeline-year-group">
+          <div className="timeline-year-label">{year}</div>
+          {yearPosts.map((post, i) => (
+            <div className="timeline-entry" key={post.title}>
+              <div className="timeline-track">
+                <div className="timeline-pip" />
+                {i < yearPosts.length - 1 && <div className="timeline-line" />}
+              </div>
+              <div className="timeline-content">
+                <div className="timeline-post-tags">
+                  {(post.tags || []).map(tag => (
+                    <span className="timeline-tag-badge" key={tag}>{tag}</span>
+                  ))}
+                </div>
                 <Post post={post} />
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       ))}
     </div>
