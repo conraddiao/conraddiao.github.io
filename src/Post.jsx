@@ -53,7 +53,7 @@ const markdownToHtml = (md) => {
   return html.join('');
 };
 
-const Post = ({ post }) => {
+const Post = ({ post, showYear = true }) => {
   const containerRef = useRef(null);
   const paginationRef = useRef(null);
   const postRef = useRef(null);
@@ -132,7 +132,8 @@ const Post = ({ post }) => {
   return (
     <div className="post" id={`p-${post.id}`} ref={postRef}>
       <h3>
-        {post.title}, <span className="postDate">{post.year}.</span>
+        {post.title}
+        {showYear && <> , <span className="postDate">{post.year}.</span></>}
       </h3>
 
       {post.images && post.images.length > 0 && (
