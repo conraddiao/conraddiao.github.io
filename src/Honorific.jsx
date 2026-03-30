@@ -1,10 +1,28 @@
 import React, { useEffect, useState, useRef } from 'react';
-const Honorific = ({ honorifics }) => {
-  const [title, setTitle] = useState('');
-  const [bgColor, setBgColor] = useState('');
-  const [paused, setPaused] = useState(false);
+
+const getDefaultHonorific = honorifics => {
+  if (!honorifics || !honorifics.length) {
+    return { title: '', color: '' };
+  }
+
+  const productGuy = honorifics.find(h => h.title === 'product_guy');
+  return productGuy || honorifics[0];
+};
+
+const Honorific = ({ honorifics, forcePaused = false }) => {
+  const initialHonorific = getDefaultHonorific(honorifics);
+  const pausedHonorific = {
+    title: 'product_guy',
+    color: initialHonorific.color || '#EC5829',
+  };
+  const [title, setTitle] = useState(initialHonorific.title);
+  const [bgColor, setBgColor] = useState(initialHonorific.color);
+  const [manualPaused, setManualPaused] = useState(false);
   const rafRef = useRef();
   const lastTimeRef = useRef(performance.now());
+  const paused = forcePaused || manualPaused;
+  const displayTitle = paused ? pausedHonorific.title : title;
+  const displayBgColor = paused ? pausedHonorific.color : bgColor;
 
   useEffect(() => {
     function tick(now) {
@@ -21,12 +39,12 @@ const Honorific = ({ honorifics }) => {
     return () => cancelAnimationFrame(rafRef.current);
   }, [honorifics, paused]);
 
-  const handleClick = () => setPaused(p => !p);
+  const handleClick = () => setManualPaused(p => !p);
 
   return (
     <span
       style={{
-        backgroundColor: bgColor,
+        backgroundColor: displayBgColor,
         fontFamily: "'IBM Plex Mono', monospace",
         fontStyle: 'normal',
         fontWeight: 200,
@@ -36,7 +54,7 @@ const Honorific = ({ honorifics }) => {
       onClick={handleClick}
       title={paused ? 'Click to resume' : 'Click to pause'}
     >
-      &nbsp;{title}&nbsp;
+      &nbsp;{displayTitle}&nbsp;
     </span>
   );
 };
