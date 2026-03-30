@@ -5,7 +5,7 @@
   --timeline-pip-size: 10px;
   --timeline-line-width: 2px;
   --timeline-line-color: rgba(255, 255, 255, 0.3);
-  --timeline-sticky-top: 5rem;
+  --timeline-sticky-top: var(--header-height, 5rem);
   --timeline-line-gap: 0.45rem;
 }
 
@@ -74,7 +74,7 @@
 
 .timeline-marker {
   position: sticky;
-  top: var(--timeline-sticky-top);
+  top: calc(var(--timeline-sticky-top) + 1rem);
   z-index: 1;
   display: inline-flex;
   align-items: center;
@@ -138,6 +138,10 @@
   white-space: nowrap;
 }
 
+.timeline-content {
+  padding-top: .25rem;
+}
+
 .timeline-content .post {
   max-width: none;
 }
@@ -150,7 +154,7 @@
   .grid-feed {
     --timeline-rail-width: 4.25rem;
     --timeline-gap: 0.9rem;
-    --timeline-sticky-top: 3.9rem;
+    --timeline-sticky-top: var(--header-height, 3.9rem);
   }
 
   .timeline-marker {

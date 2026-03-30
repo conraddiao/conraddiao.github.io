@@ -35,6 +35,21 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const headerHeight = `${entry.contentRect.height}px`;
+      document.documentElement.style.setProperty(
+        '--header-height',
+        headerHeight
+      );
+      console.log('header-height:', headerHeight);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header
     ref={headerRef}
@@ -45,7 +60,7 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
         <span><a href="#">@conraddiao</a></span>
         <span>,&nbsp;</span>
         <span>the&nbsp;</span>
-        <span><Honorific honorifics={honorifics} /></span>
+        <span><Honorific honorifics={honorifics} forcePaused={isCollapsed} /></span>
         <span>.&nbsp;~</span>
       </h1>
       <div className={`slider header-subheader ${isCollapsed ? 'closed' : 'open'}`}>
