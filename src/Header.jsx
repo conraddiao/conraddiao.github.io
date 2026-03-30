@@ -9,7 +9,7 @@ import Honorific from './Honorific';
 // import { headerHeight, setHeaderHeight } from './App';
 import { useRef } from 'react';
 
-const Header = ({ honorifics }) => {
+const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const headerRef = useRef(null);
 
@@ -41,34 +41,53 @@ const Header = ({ honorifics }) => {
     className="header" id="header">
       <h1 id="header-title" className='display-flex'>
         <span> <a href="#">~&nbsp;hi,</a></span>
-        <span> I'm </span>
+        <span>&nbsp;I'm&nbsp;</span>
         <span><a href="#">@conraddiao</a></span>
         <span>,&nbsp;</span>
         <span>the&nbsp;</span>
         <span><Honorific honorifics={honorifics} /></span>
         <span>.&nbsp;~</span>
       </h1>
-      <p className={`slider ${isCollapsed ? 'closed' : 'open'}`}>
-        Product Manager with Full-stack Operations, Growth, and Design background.
-        <br />
-        <br />
-        Product @ <a href="https://www.getonecrew.com/">OneCrew</a>.
-        <br />
-        Product @ <a href="https://www.fiercehealthcare.com/health-tech/primary-care-player-forward-shutters-after-raising-400m-rolling-out-carepods">Forward</a>.
-        <br />
-        Strategy & Ops @ <a href="https://www.salesforce.com/">Salesforce</a>.
-        <br />
-        SWE Intern @ <a href="https://numie.co/">Numie</a>, <a href="https://poshly.com">Poshly</a>, and <a href="https://qb3.org/">QB3</a>.
-        <br />
-        <br />
-        B.S. Architecture @ <a href="https://taubmancollege.umich.edu/">Michigan</a>.
-        <br />
-        <br />
-        Find me on&nbsp;
-        <a href="https://www.linkedin.com/in/conraddiao/"><FontAwesomeIcon icon={faLinkedin} size="1x" /></a>,&nbsp;
-        <a href="https://www.instagram.com/conraddiao/"><FontAwesomeIcon icon={faInstagramSquare} size="1x" /></a>,&nbsp;
-        <a href="https://github.com/conraddiao/"><FontAwesomeIcon icon={faGithub} size="1x" /></a>.
-      </p>
+      <div className={`slider header-subheader ${isCollapsed ? 'closed' : 'open'}`}>
+        <p>
+          Product Manager with Full-stack Operations, Growth, and Design background.
+          <br />
+          <br />
+          Head of Product @ <a href="https://www.getonecrew.com/">OneCrew</a>.
+          <br />
+          <em>prev. </em>Product @ <a href="https://www.fiercehealthcare.com/health-tech/primary-care-player-forward-shutters-after-raising-400m-rolling-out-carepods">Forward</a>.
+          <br />
+          <em>prev. </em>Strategy & Ops @ <a href="https://www.salesforce.com/">Salesforce</a>.
+          <br />
+          <em>prev. </em>SWE Intern @ <a href="https://numie.co/">Numie</a>, <a href="https://poshly.com">Poshly</a>, and <a href="https://qb3.org/">QB3</a>.
+          <br />
+          <br />
+          B.S. Architecture @ <a href="https://taubmancollege.umich.edu/">Michigan</a>.
+          <br />
+          <br />
+          Find me on&nbsp;
+          <a href="https://www.linkedin.com/in/conraddiao/"><FontAwesomeIcon icon={faLinkedin} size="1x" /></a>,&nbsp;
+          <a href="https://www.instagram.com/conraddiao/"><FontAwesomeIcon icon={faInstagramSquare} size="1x" /></a>,&nbsp;
+          <a href="https://github.com/conraddiao/"><FontAwesomeIcon icon={faGithub} size="1x" /></a>.
+        </p>
+        <div className="grid-feed-filters">
+          <button
+            className={`grid-feed-tag ${activeTag === null ? 'active' : ''}`}
+            onClick={() => setActiveTag(null)}
+          >
+            all
+          </button>
+          {allTags.map(tag => (
+            <button
+              key={tag}
+              className={`grid-feed-tag ${activeTag === tag ? 'active' : ''}`}
+              onClick={() => setActiveTag(tag)}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
       <hr />
     </header>
   );
