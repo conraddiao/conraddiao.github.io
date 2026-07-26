@@ -1,5 +1,13 @@
 [
     {
+        "title": "Bubbles",
+        "year": "2026",
+        "type": "gallery",
+        "tags": ["product"],
+        "copy": "Stop swapping numbers around the table. [Bubbles](https://bubbles.fyi) is a shareable contact list for events and group gatherings — one link to collect everyone, export as vCards when you're done.",
+        "images": []
+    },
+    {
         "title": "Preresign (in-progress)",
         "year": "2025",
         "type": "gallery",
