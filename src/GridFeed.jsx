@@ -11,12 +11,14 @@ const GridFeed = ({ posts }) => {
             <div className="timeline-rail">
               <div className="timeline-marker">
                 <div className="timeline-pip" />
-                <div className="timeline-date">{post.year}</div>
               </div>
             </div>
             <div className="timeline-content">
               <div className="timeline-title-row">
-                <h3>{post.title}</h3>
+                <h3>
+                  {post.title}
+                  <span className="timeline-year">, {post.year}</span>
+                </h3>
                 <div className="timeline-post-tags">
                   {(post.tags || []).map(tag => (
                     <span className="timeline-tag-badge" key={tag}>{tag}</span>
