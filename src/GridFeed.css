@@ -1,6 +1,6 @@
 .grid-feed {
   padding: 0.5rem;
-  --timeline-rail-width: 5rem;
+  --timeline-rail-width: 1.5rem;
   --timeline-gap: 1.25rem;
   --timeline-pip-size: 10px;
   --timeline-line-width: 2px;
@@ -96,15 +96,6 @@
   min-width: 0;
 }
 
-.timeline-date {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text);
-  line-height: 1;
-}
-
 .timeline-title-row {
   display: flex;
   align-items: baseline;
@@ -117,6 +108,12 @@
   margin-top: 0;
   margin-bottom: 1rem;
   font-size: inherit;
+  min-width: 0;
+}
+
+.timeline-year {
+  font-style: italic;
+  color: var(--color-text);
   white-space: nowrap;
 }
 
@@ -152,17 +149,10 @@
 
 @media screen and (max-width: 640px) {
   .grid-feed {
-    --timeline-rail-width: 4.25rem;
+    --timeline-rail-width: 1.25rem;
     --timeline-gap: 0.9rem;
     --timeline-sticky-top: var(--header-height, 3.9rem);
-  }
-
-  .timeline-marker {
-    gap: 0.55rem;
-  }
-
-  .timeline-date {
-    font-size: 0.75rem;
+    padding-right: 1rem;
   }
 
   .timeline-tag-badge {

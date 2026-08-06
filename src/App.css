@@ -18,6 +18,9 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   margin-top: 0rem;
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 * {
