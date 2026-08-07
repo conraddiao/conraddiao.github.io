@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-label="Overgraft — platform-specific link previews">
+  <defs>
+    <style>
+      .serif { font-family: 'IBM Plex Serif', Georgia, 'Times New Roman', serif; }
+      .mono  { font-family: 'IBM Plex Mono', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#3c3c3c"/>
+
+  <!-- back card: the plain default opengraph preview -->
+  <g transform="translate(250,250) rotate(-6 350 280)" opacity="0.4">
+    <rect x="0" y="0" width="700" height="560" rx="24" fill="#333" stroke="#e0e0e0" stroke-width="2"/>
+    <rect x="0" y="0" width="700" height="300" rx="24" fill="#4a4a4a"/>
+    <rect x="0" y="150" width="700" height="150" fill="#4a4a4a"/>
+    <line x1="290" y1="150" x2="410" y2="150" stroke="#6b6b6b" stroke-width="6"/>
+    <line x1="350" y1="90" x2="350" y2="210" stroke="#6b6b6b" stroke-width="6"/>
+    <rect x="40" y="350" width="420" height="26" rx="6" fill="#6b6b6b"/>
+    <rect x="40" y="404" width="560" height="18" rx="6" fill="#5a5a5a"/>
+    <rect x="40" y="440" width="500" height="18" rx="6" fill="#5a5a5a"/>
+    <rect x="40" y="500" width="220" height="16" rx="6" fill="#5a5a5a"/>
+  </g>
+
+  <!-- front card: the tailored, platform-specific preview -->
+  <g transform="translate(330,360)">
+    <rect x="0" y="0" width="720" height="580" rx="26" fill="#2f2f2f" stroke="#EC5829" stroke-width="4"/>
+    <rect x="0" y="0" width="720" height="312" rx="26" fill="#EC5829"/>
+    <rect x="0" y="160" width="720" height="152" fill="#EC5829"/>
+    <!-- graft motif: a branch grafted onto the preview -->
+    <g stroke="#fdece5" stroke-width="7" fill="none" stroke-linecap="round">
+      <path d="M300 250 C360 190 400 170 470 150"/>
+      <path d="M470 150 l-8 42 M470 150 l38 16"/>
+      <path d="M360 210 l-6 34 M360 210 l30 12"/>
+    </g>
+    <circle cx="470" cy="150" r="12" fill="#fdece5"/>
+    <rect x="44" y="360" width="360" height="30" rx="6" fill="#e0e0e0"/>
+    <rect x="44" y="418" width="620" height="20" rx="6" fill="#8a8a8a"/>
+    <rect x="44" y="456" width="560" height="20" rx="6" fill="#8a8a8a"/>
+    <text x="44" y="536" class="mono" font-size="30" fill="#EC5829">overgraft.link</text>
+  </g>
+
+  <!-- platform chips -->
+  <g class="mono" font-size="30" fill="#e0e0e0">
+    <g opacity="0.85"><rect x="120" y="150" width="150" height="60" rx="30" fill="none" stroke="#e0e0e0" stroke-width="2"/><text x="195" y="190" text-anchor="middle">x</text></g>
+    <g opacity="0.85"><rect x="290" y="120" width="230" height="60" rx="30" fill="none" stroke="#e0e0e0" stroke-width="2"/><text x="405" y="160" text-anchor="middle">linkedin</text></g>
+    <g opacity="0.85"><rect x="540" y="150" width="200" height="60" rx="30" fill="none" stroke="#e0e0e0" stroke-width="2"/><text x="640" y="190" text-anchor="middle">imessage</text></g>
+  </g>
+
+  <!-- wordmark -->
+  <text x="90" y="1150" class="mono" font-size="40" fill="#e0e0e0" opacity="0.6">overgraft — a preview per platform</text>
+</svg>

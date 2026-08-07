@@ -4,31 +4,31 @@
         "year": "2026",
         "type": "gallery",
         "tags": ["product"],
-        "copy": "Stop swapping numbers around the table. [Bubbles](https://bubbles.fyi) is a shareable contact list for events and group gatherings — one link to collect everyone, export as vCards when you're done.",
-        "images": []
+        "copy": "You meet a room full of people and leave with a phone full of half-typed numbers. [Bubbles](https://bubbles.fyi) fixes that: spin up one shareable link, everyone drops their details in, and you walk away with the whole group as vCards — no app, no account, no passing a phone around the table.",
+        "images": ["/covers/bubbles.svg"]
     },
     {
-        "title": "Preresign (in-progress)",
+        "title": "Personnel.fyi (in-progress)",
         "year": "2025",
         "type": "gallery",
         "tags": ["product"],
-        "copy": "Building something great requires great people. Sometimes they leave. Keep on top of leading indicators of resignation and adapt accordingly.",
-        "images": []
+        "copy": "Great teams are built on great people — and by the time someone hands in their notice, the decision to leave was usually made months earlier. [Personnel.fyi](https://personnel.fyi) surfaces the leading indicators of attrition, the quiet signals that show up long before the resignation letter, so you can act while it still matters.",
+        "images": ["/covers/personnel.svg"]
     },
     {
         "title": "Overgraft (in-progress)",
         "year": "2025",
         "type": "gallery",
         "tags": ["product"],
-        "copy": "Get platform specific with your social content, and stop relying on the default opengraph link preview.",
-        "images": []
+        "copy": "Every platform renders your link differently, yet most sites ship one generic Open Graph card and hope for the best. Overgraft lets you craft a tailored preview per platform — the right image, title, and framing for X, LinkedIn, iMessage, and the rest — so a shared link looks intentional everywhere it lands.",
+        "images": ["/covers/overgraft.svg"]
     },
     {
         "title": "Null Wines",
         "year": "2021",
         "type": "gallery",
         "tags": ["brand"],
-        "copy": "Brand, digital, and creative consulting for a startup non-alcoholic wine brand. In a matter of weeks, did an evaulation of the brand, it's values, opinions, tone, and mannerisms, and created packaging inserts, press material, and a webstore [nullwines.com](https://nullwines.com).",
+        "copy": "Brand, digital, and creative consulting for an early-stage non-alcoholic wine label. In a matter of weeks I audited the brand — its values, opinions, tone, and mannerisms — then designed packaging inserts, press materials, and a webstore, [nullwines.com](https://nullwines.com).",
         "images": [
             "https://github.com/conraddiao/img/blob/5f179d5df39332c2885741e898fd0d78777cc362/Screen%20Shot%202021-10-23%20at%203.51.03%20PM.png?raw=true",
             "https://github.com/conraddiao/img/blob/main/SPARKLING ROSE.png?raw=true",
@@ -41,7 +41,7 @@
         "year": "2018",
         "type": "gallery",
         "tags": ["architecture"],
-        "copy": "Undergraduate architecture project.",
+        "copy": "Undergraduate design studio, Taubman College, University of Michigan.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_1.jpg",
             "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_2.jpg",
@@ -53,7 +53,7 @@
         "year": "2018",
         "type": "gallery",
         "tags": ["architecture"],
-        "copy": "Undergraduate architecture project.",
+        "copy": "Undergraduate design studio, Taubman College, University of Michigan.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X3_1.jpg"
         ]
@@ -63,7 +63,7 @@
         "year": "2017",
         "type": "gallery",
         "tags": ["architecture"],
-        "copy": "Undergraduate architecture project.",
+        "copy": "Undergraduate design studio, Taubman College, University of Michigan.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/5f179d5df39332c2885741e898fd0d78777cc362/202_X1_1.jpg",
             "https://raw.githubusercontent.com/conraddiao/img/5f179d5df39332c2885741e898fd0d78777cc362/202_X1_2.jpg",
@@ -76,7 +76,7 @@
         "year": "2017",
         "type": "gallery",
         "tags": ["architecture"],
-        "copy": "Undergraduate architecture project.",
+        "copy": "Undergraduate design studio, Taubman College, University of Michigan.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/202_X3_6.jpg",
             "https://raw.githubusercontent.com/conraddiao/img/main/202_X3_1.jpg"
@@ -87,7 +87,7 @@
         "year": "2017",
         "type": "gallery",
         "tags": ["architecture"],
-        "copy": "Undergraduate architecture project.",
+        "copy": "A studio study of Giuseppe Terragni's Villa sul Lago — drawn and modeled to unpack the proportion, structure, and light of the Italian rationalist's design.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/202_X4_1.jpg",
             "https://raw.githubusercontent.com/conraddiao/img/main/202_X4_2.jpg",
@@ -103,7 +103,7 @@
         "year": "2018",
         "type": "gallery",
         "tags": ["architecture"],
-        "copy": "Undergraduate architecture project.",
+        "copy": "Undergraduate design studio, Taubman College, University of Michigan.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/UG1_X2_1.jpg",
             "https://raw.githubusercontent.com/conraddiao/img/main/UG1_X2_2.jpg",

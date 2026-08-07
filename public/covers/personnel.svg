@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-label="Personnel.fyi — leading indicators of resignation">
+  <defs>
+    <style>
+      .serif { font-family: 'IBM Plex Serif', Georgia, 'Times New Roman', serif; }
+      .mono  { font-family: 'IBM Plex Mono', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="1200" fill="#3c3c3c"/>
+
+  <!-- grid -->
+  <g stroke="#e0e0e0" stroke-width="1" opacity="0.10">
+    <line x1="120" y1="300" x2="1080" y2="300"/>
+    <line x1="120" y1="450" x2="1080" y2="450"/>
+    <line x1="120" y1="600" x2="1080" y2="600"/>
+    <line x1="120" y1="750" x2="1080" y2="750"/>
+  </g>
+
+  <!-- risk threshold -->
+  <line x1="120" y1="720" x2="1080" y2="720" stroke="#EC5829" stroke-width="2" stroke-dasharray="10 12" opacity="0.55"/>
+  <text x="128" y="700" text-anchor="start" class="mono" font-size="30" fill="#EC5829" opacity="0.8">risk threshold</text>
+
+  <!-- engagement signal, trending down and crossing the line -->
+  <polyline points="120,360 260,340 400,400 540,380 680,470 820,560 960,690 1080,860"
+            fill="none" stroke="#e0e0e0" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- early-warning marker where it crosses the threshold -->
+  <g>
+    <circle cx="960" cy="690" r="46" fill="none" stroke="#EC5829" stroke-width="4" opacity="0.5"/>
+    <circle cx="960" cy="690" r="22" fill="#EC5829"/>
+  </g>
+
+  <!-- roster: one person separating from the group -->
+  <g transform="translate(150,930)">
+    <g fill="#e0e0e0" opacity="0.85">
+      <g><circle cx="0" cy="0" r="26"/><rect x="-30" y="34" width="60" height="66" rx="26"/></g>
+      <g transform="translate(90,0)"><circle cx="0" cy="0" r="26"/><rect x="-30" y="34" width="60" height="66" rx="26"/></g>
+      <g transform="translate(180,0)"><circle cx="0" cy="0" r="26"/><rect x="-30" y="34" width="60" height="66" rx="26"/></g>
+    </g>
+    <!-- the one at risk, pulling away, in accent -->
+    <g transform="translate(340,0)" fill="#EC5829">
+      <circle cx="0" cy="0" r="26"/><rect x="-30" y="34" width="60" height="66" rx="26"/>
+    </g>
+    <path d="M270 50 L318 50" stroke="#EC5829" stroke-width="4" marker-end="none" opacity="0.7"/>
+    <path d="M300 38 L320 50 L300 62" fill="none" stroke="#EC5829" stroke-width="4" opacity="0.7"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="90" y="1145" class="mono" font-size="40" fill="#e0e0e0" opacity="0.6">personnel.fyi — see it before the letter</text>
+</svg>
