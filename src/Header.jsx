@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLinkedin,
@@ -6,15 +6,13 @@ import {
   faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 import Honorific from './Honorific';
-// import { headerHeight, setHeaderHeight } from './App';
-import { useRef } from 'react';
 
 // The title prefix, split into segments so the name can be bolded while the
 // rest stays normal weight. Everything types out as one continuous stream.
 const TITLE_SEGMENTS = [
-  { text: 'Hi, I\'m ' },
+  { text: 'Hi, I\'m ' },
   { text: 'Conrad Diao', bold: true },
-  { text: ', the ' },
+  { text: ', the ' }, // nbsp so the space before the honorific isn't trimmed
 ];
 
 // Types `segments` out one character at a time across the whole stream, then
@@ -60,127 +58,165 @@ const Typewriter = ({ segments, speed = 45, onDone }) => {
   );
 };
 
-const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [prefixDone, setPrefixDone] = useState(false);
-  const headerRef = useRef(null);
+// A company link that types out a tagline in grey on hover, and backspaces it
+// away on mouse-out. Reuses the honorific caret so the cursor matches.
+const CompanyLink = ({ href, label, tagline, typeSpeed = 28, deleteSpeed = 16 }) => {
+  const [hovered, setHovered] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let touchStartY = 0;
-
-    if (!isCollapsed) {
-      // EXPANDED: lock page scroll, listen for collapse gesture
-      document.body.style.overflow = 'hidden';
-
-      const collapse = () => setIsCollapsed(true);
-
-      const handleWheel = (e) => { if (e.deltaY > 0) collapse(); };
-      const handleTouchStart = (e) => { touchStartY = e.touches[0].clientY; };
-      const handleTouchEnd = (e) => {
-        if (e.changedTouches[0].clientY - touchStartY < -30) collapse();
-      };
-
-      const headerEl = headerRef.current;
-      window.addEventListener('wheel', handleWheel, { passive: true });
-      window.addEventListener('touchstart', handleTouchStart, { passive: true });
-      window.addEventListener('touchend', handleTouchEnd, { passive: true });
-      if (headerEl) headerEl.addEventListener('click', collapse);
-
-      return () => {
-        document.body.style.overflow = '';
-        window.removeEventListener('wheel', handleWheel);
-        window.removeEventListener('touchstart', handleTouchStart);
-        window.removeEventListener('touchend', handleTouchEnd);
-        if (headerEl) headerEl.removeEventListener('click', collapse);
-      };
-    } else {
-      // COLLAPSED: watch for scroll-to-top to re-expand
-      let ticking = false;
-      const handleScroll = () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            if (window.scrollY === 0) setIsCollapsed(false);
-            ticking = false;
-          });
-          ticking = true;
-        }
-      };
-
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+    if (hovered) {
+      if (count < tagline.length) {
+        const id = setTimeout(() => setCount(c => c + 1), typeSpeed);
+        return () => clearTimeout(id);
+      }
+      return undefined;
     }
-  }, [isCollapsed]);
+    // Not hovered: backspace the tagline away one character at a time.
+    if (count > 0) {
+      const id = setTimeout(() => setCount(c => c - 1), deleteSpeed);
+      return () => clearTimeout(id);
+    }
+    return undefined;
+  }, [hovered, count, tagline, typeSpeed, deleteSpeed]);
 
+  return (
+    <span
+      className="company"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <a href={href}>{label}</a>
+      {count > 0 && (
+        <span className="company-tagline">
+          {' — '}{tagline.slice(0, count)}
+          {count < tagline.length && (
+            <span className="honorific-caret" aria-hidden="true">|</span>
+          )}
+        </span>
+      )}
+    </span>
+  );
+};
+
+const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
+  const [prefixDone, setPrefixDone] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
+  const leadRef = useRef(null);
+  const titleRef = useRef(null);
+  const bioRef = useRef(null);
+  const bioWrapRef = useRef(null);
+
+  // The title bar is a top-level sticky element so it persists over every post.
+  // A lead spacer centers the title + bio on the first screen, and the bio
+  // wrapper fills the rest so the first post starts off-screen.
   useEffect(() => {
-    const el = headerRef.current;
-    if (!el) return;
-    const observer = new ResizeObserver(([entry]) => {
-      const headerHeight = `${entry.contentRect.height}px`;
-      document.documentElement.style.setProperty(
-        '--header-height',
-        headerHeight
-      );
-      console.log('header-height:', headerHeight);
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
+    const recompute = () => {
+      const vh = window.innerHeight;
+      const titleH = titleRef.current ? titleRef.current.offsetHeight : 0;
+      const bioH = bioRef.current ? bioRef.current.offsetHeight : 0;
+      const lead = Math.max(0, Math.round((vh - titleH - bioH) / 2));
+      if (leadRef.current) leadRef.current.style.height = `${lead}px`;
+      if (bioWrapRef.current) {
+        bioWrapRef.current.style.minHeight = `${Math.max(0, vh - lead - titleH)}px`;
+      }
+      document.documentElement.style.setProperty('--titlebar-h', `${titleH}px`);
+    };
+    recompute();
+    window.addEventListener('resize', recompute);
+    // Recompute on title reflow (font load, honorific width) — not the bio, so
+    // hover taglines don't re-center the hero.
+    const ro = new ResizeObserver(recompute);
+    if (titleRef.current) ro.observe(titleRef.current);
+    return () => {
+      window.removeEventListener('resize', recompute);
+      ro.disconnect();
+    };
+  }, []);
+
+  // If the visitor hasn't deliberately scrolled within 5s, glide them to the
+  // first post. Only count real gestures (wheel/touch/key) — a programmatic
+  // scroll-snap also fires 'scroll', which must not cancel the auto-scroll.
+  useEffect(() => {
+    let interacted = false;
+    const mark = () => { interacted = true; };
+    window.addEventListener('wheel', mark, { passive: true, once: true });
+    window.addEventListener('touchstart', mark, { passive: true, once: true });
+    window.addEventListener('keydown', mark, { once: true });
+
+    const id = setTimeout(() => {
+      if (interacted) return;
+      if (window.scrollY > window.innerHeight * 0.5) return; // already past the hero
+      const firstPost = document.querySelector('.post-card');
+      if (firstPost) firstPost.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 5000);
+
+    return () => {
+      clearTimeout(id);
+      window.removeEventListener('wheel', mark);
+      window.removeEventListener('touchstart', mark);
+      window.removeEventListener('keydown', mark);
+    };
   }, []);
 
   return (
-    <header
-    ref={headerRef}
-    className="header" id="header">
-      <h1 id="header-title" className='display-flex'>
-        <span><Typewriter segments={TITLE_SEGMENTS} onDone={() => setPrefixDone(true)} /></span>
-        <span>
-          <Honorific
-            honorifics={honorifics}
-            started={prefixDone}
-          />
-        </span>
-      </h1>
-      <div className={`slider header-subheader ${isCollapsed ? 'closed' : 'open'}`}>
-        <p>
-          Product Manager with Full-stack Operations, Growth, and Design background.
-          <br />
-          <br />
-          Head of Product @ <a href="https://www.getonecrew.com/">OneCrew</a>.
-          <br />
-          <em>prev. </em>Product @ <a href="https://www.fiercehealthcare.com/health-tech/primary-care-player-forward-shutters-after-raising-400m-rolling-out-carepods">Forward</a>.
-          <br />
-          <em>prev. </em>Strategy & Ops @ <a href="https://www.salesforce.com/">Salesforce</a>.
-          <br />
-          <em>prev. </em>SWE Intern @ <a href="https://numie.co/">Numie</a>, <a href="https://poshly.com">Poshly</a>, and <a href="https://qb3.org/">QB3</a>.
-          <br />
-          <br />
-          B.S. Architecture @ <a href="https://taubmancollege.umich.edu/">Michigan</a>.
-          <br />
-          <br />
-          Find me on&nbsp;
-          <a href="https://www.linkedin.com/in/conraddiao/"><FontAwesomeIcon icon={faLinkedin} size="1x" /></a>,&nbsp;
-          <a href="https://www.instagram.com/conraddiao/"><FontAwesomeIcon icon={faInstagramSquare} size="1x" /></a>,&nbsp;
-          <a href="https://github.com/conraddiao/"><FontAwesomeIcon icon={faGithub} size="1x" /></a>.
-        </p>
-        <div className="grid-feed-filters">
-          <button
-            className={`grid-feed-tag ${activeTag === null ? 'active' : ''}`}
-            onClick={() => setActiveTag(null)}
-          >
-            all
-          </button>
-          {allTags.map(tag => (
+    <>
+      <div className="hero-lead" ref={leadRef} aria-hidden="true" />
+      <div className="header-titlebar" ref={titleRef}>
+        <h1 id="header-title" className="display-flex">
+          <span><Typewriter segments={TITLE_SEGMENTS} onDone={() => setPrefixDone(true)} /></span>
+          <span>
+            <Honorific
+              honorifics={honorifics}
+              started={prefixDone}
+              onReady={() => setIntroDone(true)}
+            />
+          </span>
+        </h1>
+      </div>
+      <div className="header-hero-bio" ref={bioWrapRef}>
+        <div className={`header-subheader ${introDone ? 'is-visible' : ''}`} ref={bioRef}>
+          <p>
+            Product Manager with Full-stack Operations, Growth, and Design background.
+            <br />
+            <br />
+            Head of Product @ <CompanyLink href="https://www.getonecrew.com/" label="OneCrew" tagline="Digitizing construction" />
+            <br />
+            <em>prev. </em>Product @ <CompanyLink href="https://www.fiercehealthcare.com/health-tech/primary-care-player-forward-shutters-after-raising-400m-rolling-out-carepods" label="Forward" tagline="Direct to consumer, insurance free healthcare" />
+            <br />
+            <em>prev. </em>Strategy & Ops @ <CompanyLink href="https://www.salesforce.com/" label="Salesforce" tagline="Business as a platform for change" />
+            <br />
+            <em>prev. </em>SWE Intern @ <CompanyLink href="https://numie.co/" label="Numie" tagline="Digital creative consultancy" />, <CompanyLink href="https://poshly.com" label="Poshly" tagline="Unbelievably detailed consumer insights" />, and <CompanyLink href="https://qb3.org/" label="QB3" tagline="The Biotech+ idea factory" />
+            <br />
+            <br />
+            B.S. Architecture @ <CompanyLink href="https://taubmancollege.umich.edu/" label="Michigan" tagline="Go Blue!" />
+            <br />
+            <br />
+            Find me on&nbsp;
+            <a href="https://www.linkedin.com/in/conraddiao/"><FontAwesomeIcon icon={faLinkedin} size="1x" /></a>,&nbsp;
+            <a href="https://www.instagram.com/conraddiao/"><FontAwesomeIcon icon={faInstagramSquare} size="1x" /></a>,&nbsp;
+            <a href="https://github.com/conraddiao/"><FontAwesomeIcon icon={faGithub} size="1x" /></a>.
+          </p>
+          <div className="grid-feed-filters">
             <button
-              key={tag}
-              className={`grid-feed-tag ${activeTag === tag ? 'active' : ''}`}
-              onClick={() => setActiveTag(tag)}
+              className={`grid-feed-tag ${activeTag === null ? 'active' : ''}`}
+              onClick={() => setActiveTag(null)}
             >
-              {tag}
+              all
             </button>
-          ))}
+            {allTags.map(tag => (
+              <button
+                key={tag}
+                className={`grid-feed-tag ${activeTag === tag ? 'active' : ''}`}
+                onClick={() => setActiveTag(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-      <hr />
-    </header>
+    </>
   );
 };
 

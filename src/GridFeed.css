@@ -7,6 +7,13 @@
   gap: 1.5rem;
 }
 
+/* Second scroll-snap target (the hero is the first). Later posts don't snap, so
+   scrolling past the first post is free. */
+.post-list > .post-card:first-child {
+  scroll-snap-align: start;
+  scroll-margin-top: var(--titlebar-h, 5rem);
+}
+
 .grid-feed-filters {
   display: none;
   gap: 0.4rem;
@@ -52,17 +59,9 @@
   text-decoration: none;
 }
 
-.post-card--linked {
-  transition: background-color 0.2s ease, box-shadow 0.2s ease,
-    border-color 0.2s ease;
-}
-
 .post-card--linked:hover {
+  /* No visual card hover — just keep the anchor from underlining its contents. */
   text-decoration: none;
-  background-color: var(--color-surface-hover);
-  border-top-color: var(--color-accent);
-  border-left-color: var(--color-accent);
-  box-shadow: 10px 12px 28px -8px rgba(0, 0, 0, 0.25);
 }
 
 .post-card__head {

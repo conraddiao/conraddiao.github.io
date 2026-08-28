@@ -1,5 +1,13 @@
 [
     {
+      "title": "product guy",
+      "color": "#EC5829"
+    },
+    {
+      "title": "ski patroller",
+      "color": "#d62828"
+    },
+    {
       "title": "___operator",
       "color": "mediumblue"
     },
@@ -20,15 +28,7 @@
       "color": "seagreen"
     },
     {
-      "title": "______skier",
-      "color": "#8e5aa8"
-    },
-    {
       "title": "____realist",
       "color": "#158f86"
-    },
-    {
-      "title": "product_guy",
-      "color": "#EC5829"
     }
-  ]  
+  ]

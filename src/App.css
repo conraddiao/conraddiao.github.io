@@ -23,6 +23,12 @@ html, body {
   scroll-behavior: smooth;
 }
 
+/* Snap between the hero and the first post; free scroll after that. Snap targets
+   are padded below the sticky title bar. */
+html {
+  scroll-snap-type: y proximity;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -52,10 +58,6 @@ h1 {
   animation: honorific-blink 1s steps(1) infinite;
 }
 
-.honorific-caret[data-paused='true'] {
-  animation: none;
-}
-
 @keyframes honorific-blink {
   0%, 50% { opacity: 1; }
   50.01%, 100% { opacity: 0; }
@@ -67,8 +69,10 @@ h1 {
   max-width: 100%;
 }
 
+/* The two spans (prefix, honorific) stay flex items so they wrap together, but
+   their inner content flows inline so word spaces aren't collapsed. */
 #header-title > span {
-  display: flex;
+  display: inline;
 }
 
 @media screen and (max-width: 435px) {
@@ -108,43 +112,49 @@ hr {
   justify-content: space-between;
 }
 
-.header {
+/* Sticky title bar: the "Hi, I'm Conrad Diao, the ___" line stays pinned to the
+   top of the viewport for the whole page. Replaces the old fade-in compact bar. */
+/* Lead spacer centers the title + bio on the first screen (height set in JS).
+   Also the top scroll-snap target. */
+.hero-lead {
+  scroll-snap-align: start;
+}
+
+/* Persistent title bar: sticky at the top across the whole page. It's a
+   top-level element, so its containing block spans every post. */
+.header-titlebar {
   position: sticky;
   top: 0;
-  padding-top: 1rem;
+  z-index: 20;
+  padding: 1rem 0.5rem 0.75rem;
   background-color: var(--color-bg);
-  cursor: pointer;
-  isolation: isolate;
-  z-index: 11;
-  max-width: var(--content-max);
 }
 
-.header>h1 {
-  margin-top: 0rem;
-}
-
-.header>*:not(hr) {
-  padding: 0 0.5rem;
-}
-
-.slider {
-  overflow: hidden;
-  transition: max-height 0.6s ease-in-out, margin 0.6s ease-in-out;
-}
-
-.closed {
-  max-height: 0;
+.header-titlebar > h1 {
   margin: 0;
 }
 
-.open {
-  max-height: 300px;
+/* Holds the bio and fills the rest of the first screen (min-height set in JS)
+   so the first post starts off-screen. */
+.header-hero-bio {
+  padding-bottom: 1rem;
+}
+
+.company-tagline {
+  color: #9b978f;
+  white-space: pre;
 }
 
 .header-subheader {
   display: flex;
   gap: 1.5rem;
   align-items: flex-start;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.header-subheader.is-visible {
+  opacity: 1;
 }
 
 .header-subheader > p {
