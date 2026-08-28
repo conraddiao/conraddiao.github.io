@@ -47,7 +47,7 @@ describe('Header', () => {
     jest.restoreAllMocks();
   });
 
-  test('pauses honorific while header is collapsed and resumes at top', () => {
+  test('keeps the honorific running regardless of collapse/scroll state', () => {
     const runFrame = now => {
       const pending = Array.from(rafCallbacks.entries());
       rafCallbacks.clear();
@@ -65,18 +65,21 @@ describe('Header', () => {
 
     expect(screen.getByTestId('honorific-state')).toHaveTextContent('running');
 
+    // Collapse the header via a wheel-down gesture.
     act(() => {
-      window.scrollY = 120;
-      window.dispatchEvent(new Event('scroll'));
-      runFrame(0);
+      const wheel = new Event('wheel');
+      wheel.deltaY = 120;
+      window.dispatchEvent(wheel);
     });
 
-    expect(screen.getByTestId('honorific-state')).toHaveTextContent('paused');
+    // Animation keeps playing even though the header is now collapsed.
+    expect(screen.getByTestId('honorific-state')).toHaveTextContent('running');
 
+    // Scrolling while collapsed does not pause it either.
     act(() => {
-      window.scrollY = 0;
+      window.scrollY = 200;
       window.dispatchEvent(new Event('scroll'));
-      runFrame(16);
+      runFrame(0);
     });
 
     expect(screen.getByTestId('honorific-state')).toHaveTextContent('running');

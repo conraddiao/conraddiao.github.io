@@ -53,7 +53,37 @@ const markdownToHtml = (md) => {
   return html.join('');
 };
 
-const Post = ({ post, showYear = true, showTitle = true }) => {
+// Flatten inline links to plain text — used inside linked cards, where a nested
+// <a> would be invalid HTML (the whole card is already the link).
+const stripLinks = (md) => (md || '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+
+// Fixed-dimension hero image with skeleton + fade-in, or a placeholder block.
+const Hero = ({ src, visible }) => {
+  const [state, setState] = useState('idle');
+
+  if (!src) {
+    return (
+      <div className="post-hero post-hero--placeholder" aria-hidden="true" />
+    );
+  }
+
+  return (
+    <div className={`post-hero post-hero--${state}`}>
+      {visible && (
+        <img
+          src={src}
+          alt=""
+          loading="lazy"
+          onLoad={() => setState('loaded')}
+          onError={() => setState('error')}
+          className={state === 'loaded' ? 'post-hero__img--loaded' : ''}
+        />
+      )}
+    </div>
+  );
+};
+
+const Post = ({ post, showYear = true, showTitle = true, linked = false }) => {
   const containerRef = useRef(null);
   const paginationRef = useRef(null);
   const postRef = useRef(null);
@@ -62,6 +92,10 @@ const Post = ({ post, showYear = true, showTitle = true }) => {
   const [imageStates, setImageStates] = useState(
     () => (post.images || []).map(() => 'idle')
   );
+
+  const images = post.images || [];
+  // Linked cards get a single fixed hero; unlinked cards keep the swipe carousel.
+  const useCarousel = !linked && images.length > 0;
 
   const isDesktop = () => window.innerWidth >= 768;
 
@@ -102,7 +136,7 @@ const Post = ({ post, showYear = true, showTitle = true }) => {
 
     container.addEventListener('scroll', onScroll);
     return () => container.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [useCarousel]);
 
   const handleLoad = (index) =>
     setImageStates(prev => {
@@ -129,6 +163,8 @@ const Post = ({ post, showYear = true, showTitle = true }) => {
     }
   };
 
+  const copy = linked ? stripLinks(post.copy) : post.copy;
+
   return (
     <div className="post" id={`p-${post.id}`} ref={postRef}>
       {showTitle && (
@@ -138,14 +174,14 @@ const Post = ({ post, showYear = true, showTitle = true }) => {
         </h3>
       )}
 
-      {post.images && post.images.length > 0 && (
+      {useCarousel ? (
         <>
           <div
             className="container mandatory-scroll-snapping"
             dir="ltr"
             ref={containerRef}
           >
-            {post.images.map((image, index) => {
+            {images.map((image, index) => {
               const isActive = index === activeIndex;
               const state = imageStates[index];
               const src = postVisible ? image : undefined;
@@ -168,7 +204,7 @@ const Post = ({ post, showYear = true, showTitle = true }) => {
           </div>
 
           <div className="pagination" ref={paginationRef}>
-            {post.images.map((_, i) => (
+            {images.map((_, i) => (
               <span
                 className="pagination-icon"
                 key={i}
@@ -180,9 +216,11 @@ const Post = ({ post, showYear = true, showTitle = true }) => {
             ))}
           </div>
         </>
+      ) : (
+        <Hero src={images[0]} visible={postVisible} />
       )}
 
-      <div className="post-copy" dangerouslySetInnerHTML={{ __html: markdownToHtml(post.copy) }} />
+      <div className="post-copy" dangerouslySetInnerHTML={{ __html: markdownToHtml(copy) }} />
     </div>
   );
 };

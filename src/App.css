@@ -1,11 +1,14 @@
 :root {
-  --color-bg: #3c3c3c;
-  --color-text: #e0e0e0;
+  --color-bg: #f7f6f3;
+  --color-surface-hover: #ffffff; /* cards pop to white on hover over the warm off-white bg */
+  --color-text: #1f1e1c;
   --color-accent: #EC5829;
-  --color-muted: #333;
+  --color-muted: #dcd9d3; /* hairlines, borders */
+  --color-skeleton: #e7e4de; /* image backdrops + loading skeletons */
   --font-body: 'IBM Plex Serif', serif;
   --font-heading: 'IBM Plex Serif', serif;
-  max-width: 808px;
+  --content-max: 1120px;
+  max-width: var(--content-max);
 }
 
 html, body {
@@ -31,8 +34,31 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-h1 > span:first-child {
-  color: var(--color-accent);
+.header-name {
+  font-weight: 700;
+}
+
+.honorific {
+  font-family: 'IBM Plex Mono', monospace;
+  font-style: normal;
+  font-weight: 400;
+  cursor: pointer;
+  white-space: pre;
+}
+
+.honorific-caret {
+  font-weight: 200;
+  margin-left: -0.15ch;
+  animation: honorific-blink 1s steps(1) infinite;
+}
+
+.honorific-caret[data-paused='true'] {
+  animation: none;
+}
+
+@keyframes honorific-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
 }
 
 #header-title {
@@ -90,7 +116,7 @@ hr {
   cursor: pointer;
   isolation: isolate;
   z-index: 11;
-  max-width: 808px;
+  max-width: var(--content-max);
 }
 
 .header>h1 {
@@ -124,6 +150,17 @@ hr {
 .header-subheader > p {
   flex: 1;
   min-width: 0;
+  /* Align the body text with the post-card text below it: post text sits at
+     the post-list padding (0.5rem) + the post-card padding (1.25rem); the
+     header body already has the 0.5rem, so add the remaining 1.25rem. */
+  padding-left: 1.25rem;
+}
+
+@media screen and (max-width: 640px) {
+  .header-subheader > p {
+    /* Post-card padding drops to 0.85rem at this breakpoint. */
+    padding-left: 0.85rem;
+  }
 }
 
 .header-subheader > .grid-feed-filters {

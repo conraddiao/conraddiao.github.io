@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import GridFeed from './GridFeed.jsx';
+import Cursor from './Cursor.jsx';
 import posts from './posts.json';
 import honorifics from './honorifics.json';
 
@@ -34,6 +35,7 @@ function App() {
       />
       <GridFeed posts={filteredPosts} />
       <Footer />
+      <Cursor />
       <Analytics />
     </div>
   );
