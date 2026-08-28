@@ -4,7 +4,7 @@ import Honorific from './Honorific';
 
 const honorifics = [
   { title: '___operator', color: 'mediumblue' },
-  { title: 'product_guy', color: '#EC5829' },
+  { title: 'product guy', color: '#EC5829' },
   { title: '__architect', color: 'dimgray' },
 ];
 
@@ -17,16 +17,16 @@ describe('Honorific', () => {
     jest.useRealTimers();
   });
 
-  test('shows the full product_guy title while forcePaused is true', () => {
+  test('shows the full product guy title while forcePaused is true', () => {
     render(<Honorific honorifics={honorifics} forcePaused />);
-    expect(screen.getByText(/product_guy/)).toBeInTheDocument();
+    expect(screen.getByText(/product guy/)).toBeInTheDocument();
 
     act(() => {
       jest.advanceTimersByTime(2000);
     });
 
-    // Still parked on product_guy — no typing while paused.
-    expect(screen.getByText(/product_guy/)).toBeInTheDocument();
+    // Still parked on product guy — no typing while paused.
+    expect(screen.getByText(/product guy/)).toBeInTheDocument();
   });
 
   test('types the first honorific out character by character when running', async () => {
@@ -39,13 +39,13 @@ describe('Honorific', () => {
     expect(await screen.findByText(/operator/, {}, { timeout: 3000 })).toBeInTheDocument();
   });
 
-  test('manual pause parks on product_guy and persists across forcePaused toggles', () => {
+  test('manual pause parks on product guy and persists across forcePaused toggles', () => {
     const { rerender } = render(
       <Honorific honorifics={honorifics} forcePaused={false} />
     );
 
     fireEvent.click(screen.getByTitle('Click to pause'));
-    expect(screen.getByText(/product_guy/)).toBeInTheDocument();
+    expect(screen.getByText(/product guy/)).toBeInTheDocument();
 
     rerender(<Honorific honorifics={honorifics} forcePaused />);
     rerender(<Honorific honorifics={honorifics} forcePaused={false} />);
@@ -54,7 +54,7 @@ describe('Honorific', () => {
       jest.advanceTimersByTime(2000);
     });
 
-    expect(screen.getByText(/product_guy/)).toBeInTheDocument();
+    expect(screen.getByText(/product guy/)).toBeInTheDocument();
   });
 
   test('does not type until started is true', () => {
