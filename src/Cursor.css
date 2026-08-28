@@ -1,0 +1,54 @@
+/* Class lives on <html> so the "sides" of the page (the viewport canvas
+   outside the centered body) also hide the native cursor. */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
+
+.app-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 12px;
+  height: 12px;
+  padding: 0;
+  border-radius: 9999px;
+  background: #000;
+  transition:
+    min-width 0.18s ease,
+    height 0.18s ease,
+    padding 0.18s ease;
+  will-change: transform;
+}
+
+.app-cursor--hidden {
+  opacity: 0;
+}
+
+.app-cursor__label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #fff;
+  white-space: nowrap;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.18s ease, opacity 0.12s ease;
+}
+
+.app-cursor--hover {
+  height: 30px;
+  padding: 0 0.85rem;
+}
+
+.app-cursor--hover .app-cursor__label {
+  max-width: 12rem;
+  opacity: 1;
+}

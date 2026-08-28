@@ -3,32 +3,42 @@
         "title": "Bubbles",
         "year": "2026",
         "type": "gallery",
-        "tags": ["product"],
-        "copy": "Stop swapping numbers around the table. [Bubbles](https://bubbles.fyi) is a shareable contact list for events and group gatherings — one link to collect everyone, export as vCards when you're done.",
+        "tags": ["Personal"],
+        "url": "https://bubbles.fyi",
+        "copy": "Stop swapping numbers around the table. Bubbles is a shareable contact list for events and group gatherings — one link to collect everyone, export as vCards when you're done.",
         "images": []
     },
     {
         "title": "Preresign (in-progress)",
         "year": "2025",
         "type": "gallery",
-        "tags": ["product"],
+        "tags": ["Personal"],
         "copy": "Building something great requires great people. Sometimes they leave. Keep on top of leading indicators of resignation and adapt accordingly.",
         "images": []
     },
     {
-        "title": "Overgraft (in-progress)",
-        "year": "2025",
+        "title": "Care Plans",
+        "year": "2024",
         "type": "gallery",
-        "tags": ["product"],
-        "copy": "Get platform specific with your social content, and stop relying on the default opengraph link preview.",
+        "tags": ["Forward"],
+        "copy": "Dynamic treatment planning inside Forward's member app. I helped shape a single flow that met patients wherever they were — guided pathways for anyone who just wanted a clear next step, and deeper customization for the people who preferred to steer their own care.",
+        "images": []
+    },
+    {
+        "title": "Full Body Diagnostic",
+        "year": "2024",
+        "type": "gallery",
+        "tags": ["Forward"],
+        "copy": "A self-serve physical inside the Forward CarePod. Step in, run your own blood draw and scans, and watch the results resolve in real time while a clinician reviews remotely — walking out with a full diagnostic and a care plan tailored on the spot.",
         "images": []
     },
     {
         "title": "Null Wines",
         "year": "2021",
         "type": "gallery",
-        "tags": ["brand"],
-        "copy": "Brand, digital, and creative consulting for a startup non-alcoholic wine brand. In a matter of weeks, did an evaulation of the brand, it's values, opinions, tone, and mannerisms, and created packaging inserts, press material, and a webstore [nullwines.com](https://nullwines.com).",
+        "tags": ["Personal"],
+        "url": "https://nullwines.com",
+        "copy": "Brand, digital, and creative consulting for a startup non-alcoholic wine brand. In a matter of weeks, did an evaulation of the brand, it's values, opinions, tone, and mannerisms, and created packaging inserts, press material, and a webstore nullwines.com.",
         "images": [
             "https://github.com/conraddiao/img/blob/5f179d5df39332c2885741e898fd0d78777cc362/Screen%20Shot%202021-10-23%20at%203.51.03%20PM.png?raw=true",
             "https://github.com/conraddiao/img/blob/main/SPARKLING ROSE.png?raw=true",
@@ -40,7 +50,7 @@
         "title": "UG2 X2",
         "year": "2018",
         "type": "gallery",
-        "tags": ["architecture"],
+        "tags": ["Architecture"],
         "copy": "Undergraduate architecture project.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X2_1.jpg",
@@ -52,7 +62,7 @@
         "title": "UG2 X3",
         "year": "2018",
         "type": "gallery",
-        "tags": ["architecture"],
+        "tags": ["Architecture"],
         "copy": "Undergraduate architecture project.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/UG2_X3_1.jpg"
@@ -62,7 +72,7 @@
         "title": "UG202 X1",
         "year": "2017",
         "type": "gallery",
-        "tags": ["architecture"],
+        "tags": ["Architecture"],
         "copy": "Undergraduate architecture project.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/5f179d5df39332c2885741e898fd0d78777cc362/202_X1_1.jpg",
@@ -75,7 +85,7 @@
         "title": "UG202 X3",
         "year": "2017",
         "type": "gallery",
-        "tags": ["architecture"],
+        "tags": ["Architecture"],
         "copy": "Undergraduate architecture project.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/202_X3_6.jpg",
@@ -86,7 +96,7 @@
         "title": "Villa Sul Lago, Giuseppe Terragni",
         "year": "2017",
         "type": "gallery",
-        "tags": ["architecture"],
+        "tags": ["Architecture"],
         "copy": "Undergraduate architecture project.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/202_X4_1.jpg",
@@ -102,7 +112,7 @@
         "title": "UG1 X2",
         "year": "2018",
         "type": "gallery",
-        "tags": ["architecture"],
+        "tags": ["Architecture"],
         "copy": "Undergraduate architecture project.",
         "images": [
             "https://raw.githubusercontent.com/conraddiao/img/main/UG1_X2_1.jpg",

@@ -1,151 +1,83 @@
 import React from 'react';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Honorific from './Honorific';
 
-const installRafMock = () => {
-  let rafId = 1;
-  const callbacks = new Map();
-
-  jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => {
-    const id = rafId++;
-    callbacks.set(id, cb);
-    return id;
-  });
-
-  jest.spyOn(window, 'cancelAnimationFrame').mockImplementation(id => {
-    callbacks.delete(id);
-  });
-
-  return time => {
-    const pending = Array.from(callbacks.entries());
-    callbacks.clear();
-    pending.forEach(([, cb]) => cb(time));
-  };
-};
+const honorifics = [
+  { title: '___operator', color: 'mediumblue' },
+  { title: 'product_guy', color: '#EC5829' },
+  { title: '__architect', color: 'dimgray' },
+];
 
 describe('Honorific', () => {
   beforeEach(() => {
-    jest.spyOn(performance, 'now').mockReturnValue(0);
+    jest.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    jest.useRealTimers();
   });
 
-  test('renders product_guy initially when present', () => {
-    render(
-      <Honorific
-        honorifics={[
-          { title: 'operator', color: 'mediumblue' },
-          { title: 'product_guy', color: '#EC5829' },
-          { title: 'architect', color: 'dimgray' },
-        ]}
-      />
-    );
+  test('shows the full product_guy title while forcePaused is true', () => {
+    render(<Honorific honorifics={honorifics} forcePaused />);
+    expect(screen.getByText(/product_guy/)).toBeInTheDocument();
 
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    // Still parked on product_guy — no typing while paused.
     expect(screen.getByText(/product_guy/)).toBeInTheDocument();
   });
 
-  test('falls back to first honorific when product_guy is missing', () => {
-    render(
-      <Honorific
-        honorifics={[
-          { title: 'first_choice', color: 'orchid' },
-          { title: 'second_choice', color: 'seagreen' },
-        ]}
-      />
-    );
+  test('types the first honorific out character by character when running', async () => {
+    // Real timers here: the typewriter chains setTimeouts across React effects,
+    // which fake timers don't advance cleanly.
+    jest.useRealTimers();
+    render(<Honorific honorifics={honorifics} forcePaused={false} />);
 
-    expect(screen.getByText(/first_choice/)).toBeInTheDocument();
+    // Leading underscores are stripped; the bare word is typed out over time.
+    expect(await screen.findByText(/operator/, {}, { timeout: 3000 })).toBeInTheDocument();
   });
 
-  test('does not cycle while forcePaused is true', () => {
-    const runFrame = installRafMock();
-    jest.spyOn(Math, 'random').mockReturnValue(0.99);
-
-    render(
-      <Honorific
-        honorifics={[
-          { title: 'product_guy', color: '#EC5829' },
-          { title: 'architect', color: 'dimgray' },
-        ]}
-        forcePaused
-      />
-    );
-
-    act(() => {
-      runFrame(250);
-      runFrame(500);
-      runFrame(750);
-    });
-
-    expect(screen.getByText(/product_guy/)).toBeInTheDocument();
-    expect(screen.queryByText(/architect/)).not.toBeInTheDocument();
-  });
-
-  test('cycles while forcePaused is false', () => {
-    const runFrame = installRafMock();
-    jest.spyOn(Math, 'random').mockReturnValue(0.99);
-
-    render(
-      <Honorific
-        honorifics={[
-          { title: 'product_guy', color: '#EC5829' },
-          { title: 'architect', color: 'dimgray' },
-        ]}
-        forcePaused={false}
-      />
-    );
-
-    act(() => {
-      runFrame(250);
-    });
-
-    expect(screen.getByText(/architect/)).toBeInTheDocument();
-  });
-
-  test('manual pause persists across forcePaused true to false transition', () => {
-    const runFrame = installRafMock();
-    jest.spyOn(Math, 'random').mockReturnValue(0.99);
-
+  test('manual pause parks on product_guy and persists across forcePaused toggles', () => {
     const { rerender } = render(
-      <Honorific
-        honorifics={[
-          { title: 'product_guy', color: '#EC5829' },
-          { title: 'architect', color: 'dimgray' },
-        ]}
-        forcePaused={false}
-      />
+      <Honorific honorifics={honorifics} forcePaused={false} />
     );
 
-    fireEvent.click(screen.getByText(/product_guy/));
+    fireEvent.click(screen.getByTitle('Click to pause'));
+    expect(screen.getByText(/product_guy/)).toBeInTheDocument();
 
-    rerender(
-      <Honorific
-        honorifics={[
-          { title: 'product_guy', color: '#EC5829' },
-          { title: 'architect', color: 'dimgray' },
-        ]}
-        forcePaused
-      />
-    );
-
-    rerender(
-      <Honorific
-        honorifics={[
-          { title: 'product_guy', color: '#EC5829' },
-          { title: 'architect', color: 'dimgray' },
-        ]}
-        forcePaused={false}
-      />
-    );
+    rerender(<Honorific honorifics={honorifics} forcePaused />);
+    rerender(<Honorific honorifics={honorifics} forcePaused={false} />);
 
     act(() => {
-      runFrame(250);
-      runFrame(500);
+      jest.advanceTimersByTime(2000);
     });
 
     expect(screen.getByText(/product_guy/)).toBeInTheDocument();
-    expect(screen.queryByText(/architect/)).not.toBeInTheDocument();
+  });
+
+  test('does not type until started is true', () => {
+    render(<Honorific honorifics={honorifics} started={false} />);
+
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    // Nothing has typed out — the honorific waits for the prefix to finish.
+    expect(screen.queryByText(/operator/)).not.toBeInTheDocument();
+  });
+
+  test('fires onReady once after the first word finishes typing', async () => {
+    // Real timers: the typewriter chains setTimeouts across React effects.
+    jest.useRealTimers();
+    const onReady = jest.fn();
+    render(
+      <Honorific honorifics={honorifics} started onReady={onReady} />
+    );
+
+    await waitFor(() => expect(onReady).toHaveBeenCalledTimes(1), {
+      timeout: 3000,
+    });
   });
 });

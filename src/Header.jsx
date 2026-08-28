@@ -9,8 +9,60 @@ import Honorific from './Honorific';
 // import { headerHeight, setHeaderHeight } from './App';
 import { useRef } from 'react';
 
+// The title prefix, split into segments so the name can be bolded while the
+// rest stays normal weight. Everything types out as one continuous stream.
+const TITLE_SEGMENTS = [
+  { text: 'Hi, I\'m ' },
+  { text: 'Conrad Diao', bold: true },
+  { text: ', the ' },
+];
+
+// Types `segments` out one character at a time across the whole stream, then
+// calls `onDone`. Reuses the honorific caret so the cursor matches the
+// honorific animation.
+const Typewriter = ({ segments, speed = 45, onDone }) => {
+  const total = segments.reduce((n, s) => n + s.text.length, 0);
+  const [count, setCount] = useState(0);
+  const doneRef = useRef(false);
+
+  useEffect(() => {
+    if (count >= total) {
+      if (!doneRef.current) {
+        doneRef.current = true;
+        if (onDone) onDone();
+      }
+      return undefined;
+    }
+    const id = setTimeout(() => setCount(c => c + 1), speed);
+    return () => clearTimeout(id);
+  }, [count, total, speed, onDone]);
+
+  let offset = 0;
+  const rendered = segments.map((seg, i) => {
+    const start = offset;
+    offset += seg.text.length;
+    const shownCount = Math.max(0, Math.min(seg.text.length, count - start));
+    if (shownCount === 0) return null;
+    const shown = seg.text.slice(0, shownCount);
+    return seg.bold ? (
+      <strong key={i} className="header-name">{shown}</strong>
+    ) : (
+      <React.Fragment key={i}>{shown}</React.Fragment>
+    );
+  });
+
+  const typing = count < total;
+  return (
+    <>
+      {rendered}
+      {typing && <span className="honorific-caret" aria-hidden="true">|</span>}
+    </>
+  );
+};
+
 const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [prefixDone, setPrefixDone] = useState(false);
   const headerRef = useRef(null);
 
   useEffect(() => {
@@ -79,13 +131,13 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
     ref={headerRef}
     className="header" id="header">
       <h1 id="header-title" className='display-flex'>
-        <span> <a href="#">~&nbsp;hi,</a></span>
-        <span>&nbsp;I'm&nbsp;</span>
-        <span><a href="#">@conraddiao</a></span>
-        <span>,&nbsp;</span>
-        <span>the&nbsp;</span>
-        <span><Honorific honorifics={honorifics} forcePaused={isCollapsed} /></span>
-        <span>.&nbsp;~</span>
+        <span><Typewriter segments={TITLE_SEGMENTS} onDone={() => setPrefixDone(true)} /></span>
+        <span>
+          <Honorific
+            honorifics={honorifics}
+            started={prefixDone}
+          />
+        </span>
       </h1>
       <div className={`slider header-subheader ${isCollapsed ? 'closed' : 'open'}`}>
         <p>
