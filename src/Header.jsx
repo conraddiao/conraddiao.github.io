@@ -146,16 +146,24 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
     <>
       <div className="hero-lead" ref={leadRef} aria-hidden="true" />
       <div className="header-titlebar" ref={titleRef}>
-        <h1 id="header-title" className="display-flex">
-          <span><Typewriter segments={TITLE_SEGMENTS} onDone={() => setPrefixDone(true)} /></span>
-          <span>
-            <Honorific
-              honorifics={honorifics}
-              started={prefixDone}
-              onReady={() => setIntroDone(true)}
-            />
-          </span>
-        </h1>
+        <div className="header-title-stack">
+          <h1 id="header-title" className="header-title-line">
+            <span><Typewriter segments={TITLE_SEGMENTS} onDone={() => setPrefixDone(true)} /></span>
+            <span>
+              <Honorific
+                honorifics={honorifics}
+                started={prefixDone}
+                onReady={() => setIntroDone(true)}
+              />
+            </span>
+          </h1>
+          {/* Invisible sizer holding the longest possible title so the bar
+              reserves the tallest wrapped height and never jumps as it types. */}
+          <div className="header-title-line header-title-sizer" aria-hidden="true">
+            <span>Hi, I'm <strong className="header-name">Conrad Diao</strong>,&nbsp;</span>
+            <span className="honorific">a ski patroller</span>
+          </div>
+        </div>
       </div>
       <div className="header-hero-bio" ref={bioWrapRef}>
         <div className={`header-subheader ${introDone ? 'is-visible' : ''}`} ref={bioRef}>
