@@ -57,21 +57,42 @@ h1 {
   50.01%, 100% { opacity: 0; }
 }
 
-#header-title {
+/* Shared by the real title and the invisible sizer stacked under it, so both
+   wrap identically. The sizer holds the longest title and fixes the row height,
+   preventing the bio from jumping when the honorific wraps a new line. */
+.header-title-stack {
+  display: grid;
+}
+
+.header-title-stack > * {
+  grid-area: 1 / 1;
+}
+
+.header-title-sizer {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.header-title-line {
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
   line-height: 1.2;
+  margin: 0;
+  font-size: 2rem;
+  font-family: var(--font-heading);
+  font-weight: normal;
 }
 
 /* The two spans (prefix, honorific) stay flex items so they wrap together, but
    their inner content flows inline so word spaces aren't collapsed. */
-#header-title > span {
+.header-title-line > span {
   display: inline;
 }
 
 @media screen and (max-width: 435px) {
-  h1 {
+  h1,
+  .header-title-line {
     font-size: 1.65rem;
   }
 }
@@ -168,7 +189,7 @@ hr {
 }
 
 .scroll-hint.is-visible .scroll-hint__line {
-  animation: line-grow 1.5s linear forwards;
+  animation: line-grow 2.2s linear forwards;
 }
 
 .scroll-hint__ball {
@@ -184,20 +205,25 @@ hr {
 }
 
 .scroll-hint.is-visible .scroll-hint__ball {
-  animation: ball-fall 1.5s linear forwards;
+  animation: ball-fall 2.2s linear forwards;
 }
 
+/* Drip pacing: the line grows down while decelerating (suspense) — its bottom
+   tracks the ball via the same ease-out — then holds at full height. */
 @keyframes line-grow {
-  0%   { transform: scaleY(0); }
-  40%  { transform: scaleY(1); }
+  0%   { transform: scaleY(0); animation-timing-function: ease-out; }
+  45%  { transform: scaleY(1); }
   100% { transform: scaleY(1); }
 }
 
+/* Ball drips like water: eases down and slows into the line's tip, hangs there
+   for a beat of suspense, then detaches and accelerates off the bottom. */
 @keyframes ball-fall {
-  0%   { transform: translateY(0); opacity: 1; }
-  40%  { transform: translateY(144px); opacity: 1; } /* reaches the line's max */
-  85%  { opacity: 1; }
-  100% { transform: translateY(75vh); opacity: 0; }
+  0%   { transform: translateY(0); opacity: 1; animation-timing-function: ease-out; }
+  45%  { transform: translateY(144px); animation-timing-function: linear; }  /* arrives, slowed */
+  63%  { transform: translateY(150px); animation-timing-function: cubic-bezier(0.6, 0, 1, 1); } /* hangs, then drops */
+  90%  { opacity: 1; }
+  100% { transform: translateY(80vh); opacity: 0; }
 }
 
 .company-tagline {
@@ -222,14 +248,6 @@ hr {
   min-width: 0;
 }
 
-@media screen and (max-width: 640px) {
-  /* Reserve two lines so the title bar doesn't grow/shrink as the honorific
-     types and wraps on narrow screens. */
-  #header-title {
-    min-height: 2.4em;
-    align-content: flex-start;
-  }
-}
 
 .header-subheader > .grid-feed-filters {
   flex-shrink: 0;
