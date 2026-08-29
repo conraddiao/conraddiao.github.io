@@ -18,7 +18,7 @@ const TITLE_SEGMENTS = [
 // Types `segments` out one character at a time across the whole stream, then
 // calls `onDone`. Reuses the honorific caret so the cursor matches the
 // honorific animation.
-const Typewriter = ({ segments, speed = 45, onDone }) => {
+const Typewriter = ({ segments, speed = 40, onDone }) => {
   const total = segments.reduce((n, s) => n + s.text.length, 0);
   const [count, setCount] = useState(0);
   const doneRef = useRef(false);
@@ -102,7 +102,15 @@ const CompanyLink = ({ href, label, tagline, typeSpeed = 28, deleteSpeed = 16 })
 const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
   const [prefixDone, setPrefixDone] = useState(false);
   const [introDone, setIntroDone] = useState(false);
+  const [hintVisible, setHintVisible] = useState(false);
   const leadRef = useRef(null);
+
+  // Start the ball a bit after the bio has finished fading in (~0.7s fade).
+  useEffect(() => {
+    if (!introDone) return undefined;
+    const id = setTimeout(() => setHintVisible(true), 1000);
+    return () => clearTimeout(id);
+  }, [introDone]);
   const titleRef = useRef(null);
   const bioRef = useRef(null);
   const bioWrapRef = useRef(null);
@@ -131,31 +139,6 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
     return () => {
       window.removeEventListener('resize', recompute);
       ro.disconnect();
-    };
-  }, []);
-
-  // If the visitor hasn't deliberately scrolled within 5s, glide them to the
-  // first post. Only count real gestures (wheel/touch/key) — a programmatic
-  // scroll-snap also fires 'scroll', which must not cancel the auto-scroll.
-  useEffect(() => {
-    let interacted = false;
-    const mark = () => { interacted = true; };
-    window.addEventListener('wheel', mark, { passive: true, once: true });
-    window.addEventListener('touchstart', mark, { passive: true, once: true });
-    window.addEventListener('keydown', mark, { once: true });
-
-    const id = setTimeout(() => {
-      if (interacted) return;
-      if (window.scrollY > window.innerHeight * 0.5) return; // already past the hero
-      const firstPost = document.querySelector('.post-card');
-      if (firstPost) firstPost.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 5000);
-
-    return () => {
-      clearTimeout(id);
-      window.removeEventListener('wheel', mark);
-      window.removeEventListener('touchstart', mark);
-      window.removeEventListener('keydown', mark);
     };
   }, []);
 
@@ -214,6 +197,13 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
               </button>
             ))}
           </div>
+        </div>
+        <div
+          className={`scroll-hint ${hintVisible ? 'is-visible' : ''}`}
+          aria-hidden="true"
+        >
+          <span className="scroll-hint__line" />
+          <span className="scroll-hint__ball" />
         </div>
       </div>
     </>

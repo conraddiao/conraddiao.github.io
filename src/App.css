@@ -23,12 +23,6 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* Snap between the hero and the first post; free scroll after that. Snap targets
-   are padded below the sticky title bar. */
-html {
-  scroll-snap-type: y proximity;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -113,21 +107,21 @@ hr {
   justify-content: space-between;
 }
 
-/* Sticky title bar: the "Hi, I'm Conrad Diao, the ___" line stays pinned to the
-   top of the viewport for the whole page. Replaces the old fade-in compact bar. */
-/* Lead spacer centers the title + bio on the first screen (height set in JS).
-   Also the top scroll-snap target. */
-.hero-lead {
-  scroll-snap-align: start;
+/* One fluid side gutter for the whole page — smaller on phones, larger on
+   tablets/desktop. Children carry no horizontal padding of their own. */
+.App {
+  padding-inline: clamp(1rem, 3vw, 2rem);
 }
 
+/* Sticky title bar: the "Hi, I'm Conrad Diao, the ___" line stays pinned to the
+   top of the viewport for the whole page. Replaces the old fade-in compact bar. */
 /* Persistent title bar: sticky at the top across the whole page. It's a
    top-level element, so its containing block spans every post. */
 .header-titlebar {
   position: sticky;
   top: 0;
   z-index: 20;
-  padding: 1rem 0.5rem 0.75rem;
+  padding: 1rem 0 0.75rem;
   background-color: var(--color-bg);
 }
 
@@ -135,10 +129,75 @@ hr {
   margin: 0;
 }
 
-/* Holds the bio and fills the rest of the first screen (min-height set in JS)
-   so the first post starts off-screen. */
+/* Holds the bio and fills the rest of the first screen (min-height set in JS).
+   Flex column so the scroll hint sits at the bottom, below the bio. */
 .header-hero-bio {
+  display: flex;
+  flex-direction: column;
   padding-bottom: 1rem;
+  position: relative;
+  z-index: 1; /* so the falling ball paints over the posts below */
+}
+
+/* Vertical gradient line between the bio and the first post; drawn in 2s after
+   the bio fades in to nudge the eye downward. */
+/* Grey vertical hint, centered in the gap between the bio and the first post.
+   The line draws downward (scaleY from the top); a black ball then drops from
+   its lowest point and falls off the bottom of the screen. */
+.scroll-hint {
+  align-self: center;
+  margin: auto 0; /* vertically centered in the free space below the bio */
+  position: relative;
+  width: 10px;
+  height: 144px;
+}
+
+/* The line trails the ball: its bottom tracks the ball for the first 40% (both
+   linear), then it caps at full height while the ball keeps falling. */
+.scroll-hint__line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -1px;
+  width: 2px;
+  height: 100%;
+  border-radius: 2px;
+  background: #bdb9b0;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.scroll-hint.is-visible .scroll-hint__line {
+  animation: line-grow 1.5s linear forwards;
+}
+
+.scroll-hint__ball {
+  position: absolute;
+  top: -5px; /* centered on the top of the line — where it starts */
+  left: 50%;
+  margin-left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text);
+  opacity: 0;
+}
+
+.scroll-hint.is-visible .scroll-hint__ball {
+  animation: ball-fall 1.5s linear forwards;
+}
+
+@keyframes line-grow {
+  0%   { transform: scaleY(0); }
+  40%  { transform: scaleY(1); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes ball-fall {
+  0%   { transform: translateY(0); opacity: 1; }
+  40%  { transform: translateY(144px); opacity: 1; } /* reaches the line's max */
+  85%  { opacity: 1; }
+  100% { transform: translateY(75vh); opacity: 0; }
 }
 
 .company-tagline {
@@ -161,18 +220,9 @@ hr {
 .header-subheader > p {
   flex: 1;
   min-width: 0;
-  /* Align the body text with the post-card text below it: post text sits at
-     the post-list padding (0.5rem) + the post-card padding (1.25rem); the
-     header body already has the 0.5rem, so add the remaining 1.25rem. */
-  padding-left: 1.25rem;
 }
 
 @media screen and (max-width: 640px) {
-  .header-subheader > p {
-    /* Post-card padding drops to 0.85rem at this breakpoint. */
-    padding-left: 0.85rem;
-  }
-
   /* Reserve two lines so the title bar doesn't grow/shrink as the honorific
      types and wraps on narrow screens. */
   #header-title {
