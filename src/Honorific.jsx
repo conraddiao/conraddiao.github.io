@@ -88,14 +88,24 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
   const displayText = paused ? pausedHonorific.title : text;
   const displayColor = paused ? pausedHonorific.color : current.color;
 
+  // "a" / "an" chosen from the current honorific, so it stays correct as the
+  // word changes ("an operator", "a ski patroller").
+  const activeWord = paused ? pausedHonorific.title : fullWord;
+  const article = /^[aeiou]/i.test(activeWord) ? 'an' : 'a';
+
   return (
     <span
       className="honorific"
       onClick={handleClick}
       title={paused ? 'Click to resume' : 'Click to pause'}
     >
-      {/* Color lives on the word only, so the caret stays normal text color. */}
-      <span style={{ color: displayColor }}>{displayText}</span>
+      {(started || paused) && (
+        <>
+          {article}{' '}
+          {/* Color lives on the word only; the article stays normal text color. */}
+          <span style={{ color: displayColor }}>{displayText}</span>
+        </>
+      )}
       {/* Caret blinks while animating; hidden entirely once paused/parked. */}
       {started && !paused && (
         <span className="honorific-caret" aria-hidden="true">|</span>

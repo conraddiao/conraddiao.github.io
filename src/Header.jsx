@@ -12,7 +12,7 @@ import Honorific from './Honorific';
 const TITLE_SEGMENTS = [
   { text: 'Hi, I\'m ' },
   { text: 'Conrad Diao', bold: true },
-  { text: ', the ' }, // nbsp so the space before the honorific isn't trimmed
+  { text: ', ' }, // nbsp so the space before the honorific isn't trimmed
 ];
 
 // Types `segments` out one character at a time across the whole stream, then
@@ -180,16 +180,16 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
             Product Manager with Full-stack Operations, Growth, and Design background.
             <br />
             <br />
-            Head of Product @ <CompanyLink href="https://www.getonecrew.com/" label="OneCrew" tagline="Digitizing construction" />
+            Head of Product & Design at <CompanyLink href="https://www.getonecrew.com/" label="OneCrew" tagline="Digitizing construction" />
             <br />
-            <em>prev. </em>Product @ <CompanyLink href="https://www.fiercehealthcare.com/health-tech/primary-care-player-forward-shutters-after-raising-400m-rolling-out-carepods" label="Forward" tagline="Direct to consumer, insurance free healthcare" />
+            <em>prev. </em>Product at <CompanyLink href="https://www.fiercehealthcare.com/health-tech/primary-care-player-forward-shutters-after-raising-400m-rolling-out-carepods" label="Forward" tagline="Direct to consumer, insurance free healthcare" />
             <br />
-            <em>prev. </em>Strategy & Ops @ <CompanyLink href="https://www.salesforce.com/" label="Salesforce" tagline="Business as a platform for change" />
+            <em>prev. </em>Strategy & Ops at <CompanyLink href="https://www.salesforce.com/" label="Salesforce" tagline="Business as a platform for change" />
             <br />
-            <em>prev. </em>SWE Intern @ <CompanyLink href="https://numie.co/" label="Numie" tagline="Digital creative consultancy" />, <CompanyLink href="https://poshly.com" label="Poshly" tagline="Unbelievably detailed consumer insights" />, and <CompanyLink href="https://qb3.org/" label="QB3" tagline="The Biotech+ idea factory" />
+            <em>prev. </em>SWE Intern at <CompanyLink href="https://numie.co/" label="Numie" tagline="Digital creative consultancy" />, <CompanyLink href="https://poshly.com" label="Poshly" tagline="Unbelievably detailed consumer insights" />, and <CompanyLink href="https://qb3.org/" label="QB3" tagline="The Biotech+ idea factory" />
             <br />
             <br />
-            B.S. Architecture @ <CompanyLink href="https://taubmancollege.umich.edu/" label="Michigan" tagline="Go Blue!" />
+            B.S. Architecture at <CompanyLink href="https://taubmancollege.umich.edu/" label="Michigan" tagline="Go Blue!" />
             <br />
             <br />
             Find me on&nbsp;

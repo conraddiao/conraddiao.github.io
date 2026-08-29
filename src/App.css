@@ -45,7 +45,7 @@ h1 {
 }
 
 .honorific {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: inherit; /* match the rest of the header (IBM Plex Serif) */
   font-style: normal;
   font-weight: 400;
   cursor: pointer;
@@ -67,6 +67,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
+  line-height: 1.2;
 }
 
 /* The two spans (prefix, honorific) stay flex items so they wrap together, but
@@ -170,6 +171,13 @@ hr {
   .header-subheader > p {
     /* Post-card padding drops to 0.85rem at this breakpoint. */
     padding-left: 0.85rem;
+  }
+
+  /* Reserve two lines so the title bar doesn't grow/shrink as the honorific
+     types and wraps on narrow screens. */
+  #header-title {
+    min-height: 2.4em;
+    align-content: flex-start;
   }
 }
 
