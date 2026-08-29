@@ -4,12 +4,15 @@ import React, { useEffect, useRef, useState } from 'react';
 // flip effect; strip them so the typewriter types the bare word.
 const clean = title => (title || '').replace(/^_+/, '');
 
+// "a" / "an" from the first letter of the word.
+const articleFor = word => (/^[aeiou]/i.test(word) ? 'an' : 'a');
+
 const getPausedHonorific = honorifics => {
   const productGuy = (honorifics || []).find(h => h.title === 'product guy');
   return { title: 'product guy', color: (productGuy && productGuy.color) || '#EC5829' };
 };
 
-const TYPE_MS = 85; // per character while typing
+const TYPE_MS = 40; // per character while typing (matches the title Typewriter)
 const DELETE_MS = 40; // per character while backspacing
 const HOLD_MS = 2600; // pause once a word is fully typed
 const EMPTY_MS = 400; // pause on empty before the next word
@@ -32,15 +35,19 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
 
   const paused = forcePaused || manualPaused || autoPaused;
   const current = list[index % list.length];
-  const fullWord = clean(current.title);
+  const word = clean(current.title);
+  const article = articleFor(word);
+  // The whole "a word" / "an word" stream is typed and deleted together, so the
+  // caret backspaces the article too before the next word types.
+  const fullString = `${article} ${word}`;
 
   useEffect(() => {
     if (!started || paused) return undefined;
 
     if (phase === 'typing') {
-      if (text.length < fullWord.length) {
+      if (text.length < fullString.length) {
         timeoutRef.current = setTimeout(
-          () => setText(fullWord.slice(0, text.length + 1)),
+          () => setText(fullString.slice(0, text.length + 1)),
           TYPE_MS
         );
       } else {
@@ -57,7 +64,7 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
       }
     } else if (text.length > 0) {
       timeoutRef.current = setTimeout(
-        () => setText(fullWord.slice(0, text.length - 1)),
+        () => setText(fullString.slice(0, text.length - 1)),
         DELETE_MS
       );
     } else {
@@ -72,7 +79,7 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
     }
 
     return () => clearTimeout(timeoutRef.current);
-  }, [started, text, phase, paused, fullWord, list.length, index, onReady]);
+  }, [started, text, phase, paused, fullString, list.length, index, onReady]);
 
   const handleClick = () => {
     // Clicking a parked honorific resumes a fresh cycle; otherwise toggle pause.
@@ -85,13 +92,17 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
     setManualPaused(p => !p);
   };
 
-  const displayText = paused ? pausedHonorific.title : text;
+  // Parked state shows the full "a product guy".
+  const pausedWord = pausedHonorific.title;
+  const pausedFull = `${articleFor(pausedWord)} ${pausedWord}`;
+  const shown = paused ? pausedFull : text;
   const displayColor = paused ? pausedHonorific.color : current.color;
 
-  // "a" / "an" chosen from the current honorific, so it stays correct as the
-  // word changes ("an operator", "a ski patroller").
-  const activeWord = paused ? pausedHonorific.title : fullWord;
-  const article = /^[aeiou]/i.test(activeWord) ? 'an' : 'a';
+  // Split the shown stream into the plain article ("a "/"an ") and the coloured
+  // word so only the word carries the honorific colour.
+  const articleLen = (paused ? articleFor(pausedWord) : article).length + 1;
+  const articlePart = shown.slice(0, articleLen);
+  const wordPart = shown.length > articleLen ? shown.slice(articleLen) : '';
 
   return (
     <span
@@ -101,9 +112,8 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
     >
       {(started || paused) && (
         <>
-          {article}{' '}
-          {/* Color lives on the word only; the article stays normal text color. */}
-          <span style={{ color: displayColor }}>{displayText}</span>
+          {articlePart}
+          <span style={{ color: displayColor }}>{wordPart}</span>
         </>
       )}
       {/* Caret blinks while animating; hidden entirely once paused/parked. */}

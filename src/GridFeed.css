@@ -1,16 +1,15 @@
 .post-list {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 1rem 0.5rem 2rem;
+  padding: 1rem 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* Second scroll-snap target (the hero is the first). Later posts don't snap, so
-   scrolling past the first post is free. */
+/* Offset the auto-scroll target so the first post lands just below the sticky
+   title bar (scroll-margin is respected by scrollIntoView). */
 .post-list > .post-card:first-child {
-  scroll-snap-align: start;
   scroll-margin-top: var(--titlebar-h, 5rem);
 }
 
@@ -52,7 +51,7 @@
    aligned — only linked cards colour it in on hover. */
 .post-card {
   display: block;
-  padding: 1.25rem;
+  padding: 1.25rem 0.5rem;
   border: 2px solid transparent;
   border-radius: 8px;
   color: inherit;
@@ -119,11 +118,11 @@
 @media screen and (max-width: 640px) {
   .post-list {
     gap: 1rem;
-    padding: 0.75rem 0.5rem 1.5rem;
+    padding: 0.75rem 0 1.5rem; /* side gutter comes from .App now */
   }
 
   .post-card {
-    padding: 0.85rem;
+    padding: 0.85rem 0.35rem;
   }
 
   .post-card__title {
