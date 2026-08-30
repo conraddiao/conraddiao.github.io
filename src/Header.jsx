@@ -105,10 +105,24 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
   const [hintVisible, setHintVisible] = useState(false);
   const leadRef = useRef(null);
 
+  const hintRef = useRef(null);
+
   // Start the ball a bit after the bio has finished fading in (~0.7s fade).
+  // Also measure how far it must fall to come to rest just above the footer,
+  // so it freezes there instead of vanishing off-screen.
   useEffect(() => {
     if (!introDone) return undefined;
-    const id = setTimeout(() => setHintVisible(true), 1000);
+    const id = setTimeout(() => {
+      const hint = hintRef.current;
+      const ball = hint && hint.querySelector('.scroll-hint__ball');
+      const qed = document.querySelector('.footer-qed');
+      if (hint && ball && qed) {
+        const drop =
+          qed.getBoundingClientRect().top - ball.getBoundingClientRect().top - 72;
+        hint.style.setProperty('--ball-drop', `${Math.max(0, Math.round(drop))}px`);
+      }
+      setHintVisible(true);
+    }, 1000);
     return () => clearTimeout(id);
   }, [introDone]);
   const titleRef = useRef(null);
@@ -209,6 +223,7 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
         <div
           className={`scroll-hint ${hintVisible ? 'is-visible' : ''}`}
           aria-hidden="true"
+          ref={hintRef}
         >
           <span className="scroll-hint__line" />
           <span className="scroll-hint__ball" />

@@ -4,10 +4,8 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer>
-      <hr />
       <div className="footer-heading">
-        <h1>that's it!</h1>
-        <p>~ thanks for coming through ~</p>
+        <p className="footer-qed">Quod erat demonstrandum.</p>
         <br />
       </div>
 

@@ -222,8 +222,9 @@ hr {
   0%   { transform: translateY(0); opacity: 1; animation-timing-function: ease-out; }
   45%  { transform: translateY(144px); animation-timing-function: linear; }  /* arrives, slowed */
   63%  { transform: translateY(150px); animation-timing-function: cubic-bezier(0.6, 0, 1, 1); } /* hangs, then drops */
-  90%  { opacity: 1; }
-  100% { transform: translateY(80vh); opacity: 0; }
+  /* Falls all the way down and comes to rest just above the footer (distance
+     measured in JS), then freezes there. */
+  100% { transform: translateY(var(--ball-drop, 80vh)); opacity: 1; }
 }
 
 .company-tagline {
