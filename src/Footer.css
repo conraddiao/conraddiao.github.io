@@ -5,6 +5,13 @@ footer {
   .footer-heading {
     text-align: center;
   }
+
+  .footer-qed {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.35rem;
+    margin: 0.5rem 0;
+  }
   
   .footer-byline {
     display: flex;
