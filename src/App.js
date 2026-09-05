@@ -6,11 +6,13 @@ import GridFeed from './GridFeed.jsx';
 import Cursor from './Cursor.jsx';
 import posts from './posts.json';
 import honorifics from './honorifics.json';
+import useDarkMode from './useDarkMode';
 
 import './App.css';
 
 function App() {
   const [activeTag, setActiveTag] = useState(null);
+  useDarkMode();
 
   const allTags = useMemo(() => {
     const tagSet = new Set();

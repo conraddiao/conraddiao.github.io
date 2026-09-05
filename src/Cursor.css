@@ -18,7 +18,7 @@ html.custom-cursor-active * {
   height: 12px;
   padding: 0;
   border-radius: 9999px;
-  background: #000;
+  background: var(--color-cursor-bg);
   transition:
     min-width 0.18s ease,
     height 0.18s ease,
@@ -35,7 +35,7 @@ html.custom-cursor-active * {
   font-size: 0.75rem;
   line-height: 1;
   letter-spacing: 0.02em;
-  color: #fff;
+  color: var(--color-cursor-text);
   white-space: nowrap;
   max-width: 0;
   overflow: hidden;

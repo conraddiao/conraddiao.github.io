@@ -9,7 +9,11 @@ const articleFor = word => (/^[aeiou]/i.test(word) ? 'an' : 'a');
 
 const getPausedHonorific = honorifics => {
   const productGuy = (honorifics || []).find(h => h.title === 'product guy');
-  return { title: 'product guy', color: (productGuy && productGuy.color) || '#EC5829' };
+  return {
+    title: 'product guy',
+    color: (productGuy && productGuy.color) || '#EC5829',
+    darkColor: (productGuy && productGuy.darkColor) || '#EC5829',
+  };
 };
 
 const TYPE_MS = 40; // per character while typing (matches the title Typewriter)
@@ -96,7 +100,7 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
   const pausedWord = pausedHonorific.title;
   const pausedFull = `${articleFor(pausedWord)} ${pausedWord}`;
   const shown = paused ? pausedFull : text;
-  const displayColor = paused ? pausedHonorific.color : current.color;
+  const shownHonorific = paused ? pausedHonorific : current;
 
   // Split the shown stream into the plain article ("a "/"an ") and the coloured
   // word so only the word carries the honorific colour.
@@ -113,7 +117,17 @@ const Honorific = ({ honorifics = [], forcePaused = false, started = true, onRea
       {(started || paused) && (
         <>
           {articlePart}
-          <span style={{ color: displayColor }}>{wordPart}</span>
+          {/* Both palettes ride along as custom properties; the CSS picks one
+              per theme, so a theme toggle recolors without a re-render. */}
+          <span
+            className="honorific-word"
+            style={{
+              '--h-color': shownHonorific.color,
+              '--h-color-dark': shownHonorific.darkColor || shownHonorific.color,
+            }}
+          >
+            {wordPart}
+          </span>
         </>
       )}
       {/* Caret blinks while animating; hidden entirely once paused/parked. */}

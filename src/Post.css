@@ -61,7 +61,7 @@
     border-radius: 0.5rem;
     border: 0;
     cursor: pointer;
-    background-color: darkgray;
+    background-color: var(--color-faint);
   }
   
   .pagination-icon:first-child {
@@ -103,7 +103,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: darkgray;
+  color: var(--color-faint);
   font-size: 2rem;
 }
 
@@ -146,7 +146,7 @@
 
 .post-image--error::after {
   content: '—';
-  color: darkgray;
+  color: var(--color-faint);
   font-size: 2rem;
 }
 
@@ -177,14 +177,14 @@
 
 .post-copy code {
   font-family: 'IBM Plex Mono', monospace;
-  background-color: rgba(0, 0, 0, 0.06);
+  background-color: var(--color-code-bg);
   padding: 0.1em 0.35em;
   border-radius: 3px;
   font-size: 0.85em;
 }
 
 .post-copy pre {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: var(--color-pre-bg);
   border-left: 3px solid var(--color-accent);
   padding: 1rem;
   border-radius: 4px;
