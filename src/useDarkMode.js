@@ -30,6 +30,31 @@ const useDarkMode = () => {
     }
     apply(stored === 'dark');
 
+    // theme-anim must come off only after the fade truly finishes — a fixed
+    // timer can fire mid-transition (the class forces a full-page style recalc,
+    // so the fade starts a frame or two late) and snap the remaining color
+    // change. Key off <html>'s own transitionend, with a generous fallback,
+    // and cancel any pending removal when a new toggle restarts the fade.
+    let animTimer = null;
+    let onAnimEnd = null;
+    const startThemeAnim = el => {
+      if (animTimer) window.clearTimeout(animTimer);
+      if (onAnimEnd) el.removeEventListener('transitionend', onAnimEnd);
+      el.classList.add('theme-anim');
+      const finish = () => {
+        window.clearTimeout(animTimer);
+        animTimer = null;
+        el.removeEventListener('transitionend', onAnimEnd);
+        onAnimEnd = null;
+        el.classList.remove('theme-anim');
+      };
+      onAnimEnd = e => {
+        if (e.target === el && e.propertyName === 'background-color') finish();
+      };
+      el.addEventListener('transitionend', onAnimEnd);
+      animTimer = window.setTimeout(finish, 700);
+    };
+
     const onKeyDown = e => {
       if (e.defaultPrevented || e.isComposing || e.repeat) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
@@ -39,8 +64,7 @@ const useDarkMode = () => {
       // Cross-fade only on a real toggle — never on load, where the restored
       // theme must land instantly (theme-anim gates the CSS transitions).
       const el = document.documentElement;
-      el.classList.add('theme-anim');
-      window.setTimeout(() => el.classList.remove('theme-anim'), 300);
+      startThemeAnim(el);
 
       const dark = !el.classList.contains('dark');
       apply(dark);
@@ -64,6 +88,9 @@ const useDarkMode = () => {
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('storage', onStorage);
+      if (animTimer) window.clearTimeout(animTimer);
+      if (onAnimEnd) document.documentElement.removeEventListener('transitionend', onAnimEnd);
+      document.documentElement.classList.remove('theme-anim');
     };
   }, []);
 };
