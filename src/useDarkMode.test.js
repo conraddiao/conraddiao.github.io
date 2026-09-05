@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import useDarkMode from './useDarkMode';
 
 const Probe = () => {
@@ -132,6 +132,45 @@ describe('useDarkMode', () => {
     pressD(window, { repeat: true });
 
     expect(document.documentElement.classList.contains('dark')).toBe(false);
+  });
+
+  test('theme-anim persists through a mid-fade re-toggle and ends on transitionend', () => {
+    jest.useFakeTimers();
+    render(<Probe />);
+    const el = document.documentElement;
+
+    pressD();
+    expect(el.classList.contains('theme-anim')).toBe(true);
+
+    // Re-toggle mid-fade: the first press's pending removal must not cut the
+    // second fade short.
+    act(() => { jest.advanceTimersByTime(400); });
+    pressD();
+    act(() => { jest.advanceTimersByTime(350); }); // past the first press's fallback
+    expect(el.classList.contains('theme-anim')).toBe(true);
+
+    // The real end signal: <html>'s own background-color transition finishing.
+    const ev = new Event('transitionend');
+    ev.propertyName = 'background-color';
+    fireEvent(el, ev);
+    expect(el.classList.contains('theme-anim')).toBe(false);
+
+    el.classList.remove('theme-anim');
+    jest.useRealTimers();
+  });
+
+  test('theme-anim falls back to a timer when transitionend never fires', () => {
+    jest.useFakeTimers();
+    render(<Probe />);
+    const el = document.documentElement;
+
+    pressD();
+    expect(el.classList.contains('theme-anim')).toBe(true);
+
+    act(() => { jest.advanceTimersByTime(700); });
+    expect(el.classList.contains('theme-anim')).toBe(false);
+
+    jest.useRealTimers();
   });
 
   test('follows a toggle made in another tab (storage event)', () => {
