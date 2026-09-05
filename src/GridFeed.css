@@ -35,8 +35,8 @@
 }
 
 .grid-feed-tag:hover {
-  border-color: rgba(0, 0, 0, 0.35);
-  background: rgba(0, 0, 0, 0.04);
+  border-color: var(--color-tag-hover-border);
+  background: var(--color-tag-hover-bg);
 }
 
 .grid-feed-tag.active {
@@ -83,7 +83,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #9b978f;
+  color: var(--color-faint);
   flex-shrink: 0;
 }
 
@@ -107,7 +107,7 @@
   font-family: var(--font-heading);
   font-size: 0.8rem;
   letter-spacing: 0.1em;
-  color: #9b978f;
+  color: var(--color-faint);
   white-space: nowrap;
 }
 

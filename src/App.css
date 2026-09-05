@@ -5,10 +5,47 @@
   --color-accent: #EC5829;
   --color-muted: #dcd9d3; /* hairlines, borders */
   --color-skeleton: #e7e4de; /* image backdrops + loading skeletons */
+  --color-faint: #9b978f; /* years, tags, company taglines */
+  --color-hint-line: #bdb9b0; /* scroll-hint vertical line */
+  --color-tag-hover-border: rgba(0, 0, 0, 0.35);
+  --color-tag-hover-bg: rgba(0, 0, 0, 0.04);
+  --color-code-bg: rgba(0, 0, 0, 0.06);
+  --color-pre-bg: rgba(0, 0, 0, 0.04);
+  --color-cursor-bg: #000;
+  --color-cursor-text: #fff;
   --font-body: 'IBM Plex Serif', serif;
   --font-heading: 'IBM Plex Serif', serif;
   --content-max: 1120px;
   max-width: var(--content-max);
+  color-scheme: light;
+}
+
+/* Dark mode: toggled by pressing "d" (useDarkMode puts .dark on <html>).
+   Same warm cast as the light palette, inverted. */
+html.dark {
+  --color-bg: #1b1a18;
+  --color-surface-hover: #24221f;
+  --color-text: #e8e5df;
+  --color-muted: #3b3833;
+  --color-skeleton: #2b2925;
+  --color-faint: #8f8a81;
+  --color-hint-line: #55514a;
+  --color-tag-hover-border: rgba(255, 255, 255, 0.35);
+  --color-tag-hover-bg: rgba(255, 255, 255, 0.06);
+  --color-code-bg: rgba(255, 255, 255, 0.08);
+  --color-pre-bg: rgba(255, 255, 255, 0.05);
+  --color-cursor-bg: #f2efe9;
+  --color-cursor-text: var(--color-bg); /* inverted cursor label matches the page bg */
+  color-scheme: dark;
+}
+
+/* Theme cross-fade runs only during an actual toggle (useDarkMode adds
+   .theme-anim around the flip) — never on load, so a restored dark theme
+   lands instantly, and every themed surface moves together. */
+html.theme-anim,
+html.theme-anim body,
+html.theme-anim * {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 html, body {
@@ -44,6 +81,17 @@ h1 {
   font-weight: 400;
   cursor: pointer;
   white-space: pre;
+}
+
+/* Honorific colors come from honorifics.json as paired custom properties:
+   `color` for the light bg, a hand-tuned `darkColor` for the dark bg (dark
+   hues like mediumblue would sink into the dark background otherwise). */
+.honorific-word {
+  color: var(--h-color);
+}
+
+html.dark .honorific-word {
+  color: var(--h-color-dark, var(--h-color));
 }
 
 .honorific-caret {
@@ -183,7 +231,7 @@ hr {
   width: 2px;
   height: 100%;
   border-radius: 2px;
-  background: #bdb9b0;
+  background: var(--color-hint-line);
   transform: scaleY(0);
   transform-origin: top;
 }
@@ -228,7 +276,7 @@ hr {
 }
 
 .company-tagline {
-  color: #9b978f;
+  color: var(--color-faint);
   white-space: pre;
 }
 

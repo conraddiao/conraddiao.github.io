@@ -1,34 +1,42 @@
 [
     {
       "title": "product guy",
-      "color": "#EC5829"
+      "color": "#EC5829",
+      "darkColor": "#EC5829"
     },
     {
       "title": "ski patroller",
-      "color": "#d62828"
+      "color": "#d62828",
+      "darkColor": "#ef5350"
     },
     {
       "title": "___operator",
-      "color": "mediumblue"
+      "color": "mediumblue",
+      "darkColor": "cornflowerblue"
     },
     {
       "title": "__developer",
-      "color": "orchid"
+      "color": "orchid",
+      "darkColor": "orchid"
     },
     {
       "title": "__architect",
-      "color": "dimgray"
+      "color": "dimgray",
+      "darkColor": "#a8a29a"
     },
     {
       "title": "_____singer",
-      "color": "firebrick"
+      "color": "firebrick",
+      "darkColor": "#e05252"
     },
     {
       "title": "___optimist",
-      "color": "seagreen"
+      "color": "seagreen",
+      "darkColor": "mediumseagreen"
     },
     {
       "title": "____realist",
-      "color": "#158f86"
+      "color": "#158f86",
+      "darkColor": "#2ec4b6"
     }
   ]
