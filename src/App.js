@@ -12,6 +12,7 @@ import './App.css';
 
 function App() {
   const [activeTag, setActiveTag] = useState(null);
+  const [ballLanded, setBallLanded] = useState(false);
   useDarkMode();
 
   const allTags = useMemo(() => {
@@ -34,9 +35,10 @@ function App() {
         allTags={allTags}
         activeTag={activeTag}
         setActiveTag={setActiveTag}
+        onBallLanded={() => setBallLanded(true)}
       />
       <GridFeed posts={filteredPosts} />
-      <Footer />
+      <Footer ballLanded={ballLanded} />
       <Cursor />
       <Analytics />
     </div>

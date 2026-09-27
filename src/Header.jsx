@@ -99,32 +99,40 @@ const CompanyLink = ({ href, label, tagline, typeSpeed = 28, deleteSpeed = 16 })
   );
 };
 
-const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
+const Header = ({ honorifics, allTags = [], activeTag, setActiveTag, onBallLanded }) => {
   const [prefixDone, setPrefixDone] = useState(false);
   const [introDone, setIntroDone] = useState(false);
   const [hintVisible, setHintVisible] = useState(false);
+  const [ballLanded, setBallLanded] = useState(false);
   const leadRef = useRef(null);
 
   const hintRef = useRef(null);
 
   // Start the ball a bit after the bio has finished fading in (~0.7s fade).
-  // Also measure how far it must fall to come to rest just above the footer,
-  // so it freezes there instead of vanishing off-screen.
+  // Also measure how far it must fall to reach the footer's resting dot.
   useEffect(() => {
     if (!introDone) return undefined;
     const id = setTimeout(() => {
       const hint = hintRef.current;
       const ball = hint && hint.querySelector('.scroll-hint__ball');
-      const qed = document.querySelector('.footer-qed');
-      if (hint && ball && qed) {
-        const drop =
-          qed.getBoundingClientRect().top - ball.getBoundingClientRect().top - 72;
+      const dot = document.querySelector('.footer-dot');
+      if (hint && ball && dot) {
+        const drop = dot.getBoundingClientRect().top - ball.getBoundingClientRect().top;
         hint.style.setProperty('--ball-drop', `${Math.max(0, Math.round(drop))}px`);
       }
       setHintVisible(true);
     }, 1000);
     return () => clearTimeout(id);
   }, [introDone]);
+
+  // Once the fall ends, hand off to the dot in the footer's layout flow. The
+  // falling ball's offset is measured once, so it would drift whenever the
+  // page reflows (resize, images loading, filtering); the footer dot doesn't.
+  const handleBallEnd = e => {
+    if (e.animationName !== 'ball-fall') return;
+    setBallLanded(true);
+    if (onBallLanded) onBallLanded();
+  };
   const titleRef = useRef(null);
   const bioRef = useRef(null);
   const bioWrapRef = useRef(null);
@@ -221,12 +229,12 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag }) => {
           </div>
         </div>
         <div
-          className={`scroll-hint ${hintVisible ? 'is-visible' : ''}`}
+          className={`scroll-hint ${hintVisible ? 'is-visible' : ''} ${ballLanded ? 'is-landed' : ''}`}
           aria-hidden="true"
           ref={hintRef}
         >
           <span className="scroll-hint__line" />
-          <span className="scroll-hint__ball" />
+          <span className="scroll-hint__ball" onAnimationEnd={handleBallEnd} />
         </div>
       </div>
     </>

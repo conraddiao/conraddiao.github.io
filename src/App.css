@@ -270,9 +270,13 @@ hr {
   0%   { transform: translateY(0); opacity: 1; animation-timing-function: ease-out; }
   45%  { transform: translateY(144px); animation-timing-function: linear; }  /* arrives, slowed */
   63%  { transform: translateY(150px); animation-timing-function: cubic-bezier(0.6, 0, 1, 1); } /* hangs, then drops */
-  /* Falls all the way down and comes to rest just above the footer (distance
-     measured in JS), then freezes there. */
+  /* Falls all the way down onto the footer's dot (distance measured in JS). */
   100% { transform: translateY(var(--ball-drop, 80vh)); opacity: 1; }
+}
+
+/* Landed: the footer's in-flow dot takes over, so hide the falling one. */
+.scroll-hint.is-landed .scroll-hint__ball {
+  visibility: hidden;
 }
 
 .company-tagline {
