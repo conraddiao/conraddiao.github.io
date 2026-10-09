@@ -21,7 +21,8 @@
         "year": "2024",
         "type": "gallery",
         "tags": ["Forward"],
-        "copy": "Dynamic treatment planning inside Forward's member app. I helped shape a single flow that met patients wherever they were — guided pathways for anyone who just wanted a clear next step, and deeper customization for the people who preferred to steer their own care.",
+        "caseStudy": "care-plans",
+        "copy": "To retain members past the ~60-day cliff after their first CarePod visit, I wrote the PRD for Deep Plans: care plans members co-create, with habits anchored to clinical guidance that give them a plausible reason to come back and re-measure. Cholesterol was the tracer app.",
         "images": []
     },
     {

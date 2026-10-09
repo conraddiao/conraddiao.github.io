@@ -1,0 +1,223 @@
+/* Long-form case study page. Uses the site's theme tokens from App.css so it
+   follows light/dark mode like everything else. */
+
+.case-study {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.cs-back {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--color-faint);
+  margin-bottom: 2.5rem;
+}
+
+.cs-back:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.cs-back--end {
+  margin: 3rem 0 0;
+}
+
+/* Header ------------------------------------------------------------------ */
+
+.cs-header {
+  padding-bottom: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--color-muted);
+}
+
+.cs-header__kicker {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-faint);
+}
+
+.cs-header__title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.cs-header__subtitle {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  margin: 0 0 2rem;
+}
+
+.cs-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2rem;
+  margin: 0;
+}
+
+.cs-meta__item dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-faint);
+  margin-bottom: 0.2rem;
+}
+
+.cs-meta__item dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Sections ---------------------------------------------------------------- */
+
+.cs-section {
+  padding-top: 2.5rem;
+}
+
+.cs-section__heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 1rem;
+}
+
+.cs-section__num {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-prose p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 0 0 1rem;
+}
+
+.cs-list {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.cs-list li {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 0.4rem;
+}
+
+.cs-list li::marker {
+  color: var(--color-accent);
+}
+
+/* Goal tree: each step indents one notch further, connected by a hairline. */
+.cs-tree {
+  list-style: none;
+  margin: 0.5rem 0 1.5rem;
+  padding: 0;
+}
+
+.cs-tree li {
+  position: relative;
+  margin-left: calc(var(--depth) * 1.1rem);
+  padding: 0.35rem 0 0.35rem 1rem;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  border-left: 1px solid var(--color-muted);
+}
+
+.cs-tree li::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0.85rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-muted);
+}
+
+.cs-tree li:last-child {
+  font-weight: 600;
+}
+
+.cs-tree li:last-child::before {
+  background: var(--color-accent);
+}
+
+/* Decisions --------------------------------------------------------------- */
+
+.cs-decisions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.cs-decision {
+  padding: 1.25rem 1.25rem 0.5rem;
+  border: 1px solid var(--color-muted);
+  border-radius: 8px;
+}
+
+.cs-decision__q {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 0.85rem;
+}
+
+.cs-decision dl {
+  margin: 0;
+}
+
+.cs-decision dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-faint);
+}
+
+.cs-decision dd {
+  margin: 0.2rem 0 0.9rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.cs-decision dt:nth-of-type(2) {
+  color: var(--color-accent);
+}
+
+@media screen and (max-width: 640px) {
+  .case-study {
+    padding-top: 1.25rem;
+  }
+
+  .cs-back {
+    margin-bottom: 1.75rem;
+  }
+
+  .cs-header__title {
+    font-size: 1.9rem;
+  }
+
+  .cs-header__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .cs-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-decision {
+    padding: 1rem 1rem 0.25rem;
+  }
+}
