@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Post.css';
 
 // Markdown -> HTML converter supporting links, images, videos, code blocks, inline code, bold, italic
-const markdownToHtml = (md) => {
+export const markdownToHtml = (md) => {
   if (!md) return '';
 
   const escapeHtml = (s) =>
