@@ -22,6 +22,10 @@
         "type": "gallery",
         "tags": ["Forward"],
         "copy": "Dynamic treatment planning inside Forward's member app. I helped shape a single flow that met patients wherever they were — guided pathways for anyone who just wanted a clear next step, and deeper customization for the people who preferred to steer their own care.",
+        "video": {
+            "src": "/media/care-plans-walkthrough.mp4",
+            "poster": "/media/care-plans-walkthrough.jpg"
+        },
         "images": []
     },
     {

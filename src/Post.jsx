@@ -83,6 +83,53 @@ const Hero = ({ src, visible }) => {
   );
 };
 
+// Silent, looping walkthrough video in the hero slot. Mounts once the card is
+// near the viewport, plays only while on screen, and falls back to a poster
+// with controls for visitors who prefer reduced motion.
+const HeroVideo = ({ video, visible, label }) => {
+  const videoRef = useRef(null);
+  const [loaded, setLoaded] = useState(false);
+  const reduceMotion =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || reduceMotion) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        const playing = el.play();
+        if (playing && playing.catch) playing.catch(() => {});
+      } else {
+        el.pause();
+      }
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [visible, reduceMotion]);
+
+  return (
+    <div className={`post-hero post-hero--video post-hero--${loaded ? 'loaded' : 'idle'}`}>
+      {visible && (
+        <video
+          ref={videoRef}
+          src={video.src}
+          poster={video.poster}
+          aria-label={label}
+          muted
+          loop
+          playsInline
+          autoPlay={!reduceMotion}
+          controls={reduceMotion}
+          preload="metadata"
+          onLoadedData={() => setLoaded(true)}
+        />
+      )}
+    </div>
+  );
+};
+
 const Post = ({ post, showYear = true, showTitle = true, linked = false }) => {
   const containerRef = useRef(null);
   const paginationRef = useRef(null);
@@ -216,6 +263,12 @@ const Post = ({ post, showYear = true, showTitle = true, linked = false }) => {
             ))}
           </div>
         </>
+      ) : post.video ? (
+        <HeroVideo
+          video={post.video}
+          visible={postVisible}
+          label={`${post.title} walkthrough`}
+        />
       ) : (
         <Hero src={images[0]} visible={postVisible} />
       )}
