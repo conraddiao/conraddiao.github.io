@@ -4,109 +4,141 @@
 // Body strings use the same lightweight markdown as post copy (links, bold,
 // italic, inline code); `items` render as a list, `tree` as a stepped outline,
 // and `decisions` as question / options / call blocks.
+//
+// Care Plans content is drawn from the Deep Plans PRD. Internal figures,
+// names, and links are left out; wording follows the PRD where possible.
 
 const caseStudies = {
   'care-plans': {
     title: 'Care Plans',
-    subtitle: 'Giving people a reason to come back and re-measure.',
+    subtitle: 'Deep Plans: plan co-creation with habits. Give members a plausible reason why their health may have improved, so they are motivated to re-measure.',
     year: '2024',
     tags: ['Forward'],
     meta: [
-      { label: 'Role', value: 'Product lead; wrote the PRD' },
-      { label: 'Team', value: '1 PM, 1 designer, 2 app engineers, clinical partners' },
-      { label: 'Timeline', value: 'Fall 2024, ~5-week first ship' },
-      { label: 'Status', value: 'Specced and in build when Forward shut down' },
+      { label: 'Role', value: 'Author of the Deep Plans PRD' },
+      { label: 'Team', value: '1 PM, 1 designer, 2 apps engineers; supported by clinical product, clinical platform, and doctor champions' },
+      { label: 'Planned build', value: 'Nov–Dec 2024, 4–6 weeks' },
+      { label: 'Tracer app', value: 'Cholesterol' },
     ],
     sections: [
       {
-        heading: 'The problem',
+        heading: 'Problem',
         body: [
-          "Forward's CarePod gave members a full-body diagnostic in a single visit: blood draw, body scan, vitals, reviewed remotely by a clinician. The first visit worked. The second one mostly didn't happen.",
-          'Members tended to drift away around 60 days in. For a business priced on membership, that cliff was the whole game. I worked the goal down from the company mission to something a single team could own:',
+          "The PRD starts from Forward's mission and works down to the thing this ship had to change:",
         ],
         tree: [
-          'Deliver great healthcare to a lot of people, affordably',
-          'Hit target profit per member, which means longer retention',
-          'Get members back to the CarePod before day 60',
-          'Give every member a reason to return',
-          'Get every member engaged in a plan that includes re-measurement',
-          'Get every member to create a plan',
+          "Deliver the world's best healthcare, to 1 billion people, for free",
+          'Hit a gross profit per member target at scale, which depends on months of retention',
+          'Maximize 60-day retention',
+          'Every member revisits the CarePod before day 60',
+          'Every member has scheduled a revisit before day 60',
+          'Every member has a reason to revisit the CarePod',
+          'Every member is engaged in a Plan with re-measurement items',
+          'Every member creates a Plan',
         ],
       },
       {
-        heading: 'The insight',
+        heading: 'Context',
         body: [
-          "The only real reason to revisit a CarePod is to re-measure: your weight, your blood, your body. So why does anyone re-measure? Roughly two motivations: you're **afraid things got worse**, or you're **hopeful things got better**. Each comes with or without a strong reason to believe it.",
-          "The quadrant worth designing for was *hopeful, with a strong reason to believe*. If someone has spent six weeks swapping orange juice for water and walking after lunch, they want to know whether it worked. The app's job was to give members that plausible reason, and the CarePod's job was to be the place you find out.",
-          'Members had already told us what they valued in the app: education, accountability, and a way to reach Forward. Habits could deliver all three.',
-        ],
-      },
-      {
-        heading: 'The bet',
-        body: [
-          'Turn the care plan from something a clinician hands you into something you build with Forward. After a diagnosis, members would walk through three parts of a plan, **lifestyle, medication, and monitoring**, and choose a few concrete daily habits anchored to clinical guidance. "Limit high-glycemic foods" became "swap orange juice for a glass of water at breakfast."',
-          'The first ship was scoped as a learning tool, with four questions:',
+          'Members had been to the CarePod. To retain them past the ~60-day cliff, Forward needed to deliver value both in the mobile app and through the CarePod.',
+          'Members told us the most valuable things the app could offer were education, accountability, and a way to interact with Forward. And to many of them, it wasn\'t clear why they would return to the CarePod, or that doing so was worth the commute.',
+          'The reason to revisit is to re-measure: weight, blood, body model. The motivations to re-measure are roughly:',
         ],
         items: [
-          'Will members accept habits as part of a care plan?',
-          'Will they keep engaging with them?',
-          'Do habits drive CarePod re-measurement?',
-          'Do habits move health outcomes?',
+          "I'm afraid things have gotten worse, with or without a strong reason to believe they have",
+          "I'm hopeful things have gotten better, **and I have a strong reason to believe they have**",
+          "I'm hopeful things have gotten better, without a strong reason to believe it",
         ],
         after: [
-          'Just as important was what it would *not* test: a fully doctorless plan, or an asynchronous prescription flow. Those were planned as follow-on ships, so the first one could stay small enough to build in about five weeks.',
+          'The goal, from both a health-improvement and an engagement standpoint, was to give members a plausible reason why their health may have improved, so they are motivated to re-measure.',
+          'One assumption shaped everything: reduce dependence on chat, with no virtual visits, no synchronous doctor time, and no member expectation of synchronous doctor time.',
         ],
       },
       {
-        heading: 'The hard calls',
+        heading: 'Ship 1: plan co-creation with habits',
         body: [
-          'I wrote the PRD as a set of forks: each open question laid out with its options and a recommendation, so engineering, design, and clinical could argue with specific choices instead of a vague direction. A few that mattered most:',
+          'After diagnosis, members build their Care Plan across lifestyle, medication, and monitoring. Lifestyle includes **habits**: small actions members choose themselves, organized under clinically indicated suggestions. For example, "Limit foods with high glycemic index" becomes "swap orange juice for a glass of water at breakfast." The anchoring matters because people largely know which habits aren\'t helping their health, but don\'t connect those habits to their condition or understand the size of the impact.',
+          'Goals for the ship:',
+        ],
+        items: [
+          'Evaluate the acceptance of habits as part of Care Plans',
+          'Evaluate ongoing engagement with habits',
+          'Evaluate the effectiveness of habits as a driver of CarePod re-measurement',
+          'Evaluate the impact of habits on health outcomes',
+        ],
+        after: [
+          'Non-goals: evaluating a doctorless plan creation experience, or an asynchronous medication acceptance flow. Both were left to future ships, with product and design work already underway.',
+        ],
+      },
+      {
+        heading: 'What the member experience covered',
+        items: [
+          '**Diagnosis and health status delivery:** a diagnosis delivered differently depending on whether the member has a condition and whether they reported a related one in their health profile',
+          '**Plan introduction:** a short segment on the holistic, personalized approach of Care Plans: lifestyle, medication, monitoring',
+          '**Plan creation navigation:** recommended plan items as cards; completed modules become plan items on the app home screen, and the "build care plan" call to action becomes "enrich care plan"',
+          '**Habit selection:** likely habits grouped by focus area, each focus tied to clinical guidance in the care plan templates',
+          '**Habit check-ins and tracking:** an accountability loop where members track habits and can add or pause them at any time',
+          '**Minimal medication selection:** an explanation of Forward\'s approach to medication, the member\'s perspective on it, and a hand-off to clinician review',
+        ],
+      },
+      {
+        heading: 'Forks',
+        body: [
+          'The PRD is organized around forks: each open question with its options and a recommendation, worked through with clinical, design, and engineering partners.',
         ],
         decisions: [
           {
-            question: 'Which condition do we pilot on?',
-            options: 'Weight loss, diabetes, cholesterol, or blood pressure.',
-            call: "Cholesterol. Re-measuring weight or blood pressure is easy at home, so the CarePod adds little. A blood panel isn't something you do in your kitchen, which makes the return trip worth it. Bloodwork also reads as more \"medical,\" so Forward's guidance carries more weight. Cholesterol beat diabetes because it measures more values and was more common among our members.",
+            question: 'Which app should we use as the tracer?',
+            options: 'Weight loss, diabetes, cholesterol, or blood pressure, compared on how many members each affects, how strongly a CarePod revisit is differentiated, competing trusted sources, how much of the plan is already medication, and the blast radius of changes.',
+            call: 'Cholesterol. For the blood-draw apps, re-measuring at the CarePod is well differentiated: members are more likely to have a scale or blood pressure cuff at home than a phlebotomist. Blood-measured issues also read as more "medical" than "lifestyle," so Forward carries more authority. Between the two blood-draw apps, cholesterol measures more analytes and is more prevalent in the CarePod population.',
           },
           {
-            question: 'How do we bring up medication without a doctor visit?',
-            options: "Nine options, weighed on regulatory risk, clinical correctness, overlap with upcoming platform work, and build cost. The tension: if software changes what clinical content a member sees based on data no clinician has confirmed, it starts to look like a regulated medical device.",
-            call: 'Clinicians were already reviewing every member\'s results. So we asked them to make one more lightweight decision during that review: yes, no, or needs more info on medication. That recorded decision, not raw lab values, drives what the app shows. It kept regulatory risk low, matched how a doctor actually decides, and cost little to build.',
+            question: 'What should drive showing medication as relevant in plan creation?',
+            options: 'Nine options, scored on software-as-a-medical-device (SaMD) classification risk, whether each correctly models clinical decisions, overlap with upcoming protocols work, build complexity, and whether it served the user stories. With our clinical leads, we ruled out using analyte values in a range to drive the UI directly: the SaMD risk was too high.',
+            call: 'A lightweight clinical decision made during the clinician\'s overread (for example, a task answered yes, no, or more information required) drives the medication UI in the app. Clinicians are already making a batch of decisions at overread; this asks for one more. In the longer term, I recommended clinicians create draft, pre-authorized medication orders at overread, which members could request, reject, ask about, or come back to later.',
           },
           {
-            question: 'One medication option, or three?',
-            options: 'Earlier flows showed three options to give a sense of choice.',
-            call: 'One. In research calls, many members were hesitant about medication to begin with, and many were overwhelmed by choice and just wanted the doctor\'s answer. It\'s a two-way door: the flow could show more options later if objections suggested choice would help.',
+            question: 'How many medication options should we show at once?',
+            options: 'In the past, Forward showed three options to create a sense of choice and control.',
+            call: 'Show one, for now. In research calls, many people were hesitant to accept medication, and many were overwhelmed by choice and wanted an answer from "the doctor." One versus three is a two-way door: if objections showed that choice would raise acceptance, the step could become "review suggested medication(s)."',
           },
           {
-            question: 'When do members see their plan?',
-            options: 'Show every recommended item immediately, only after the whole flow, or as each part is completed.',
-            call: "As each part is completed. Showing the full plan before the member does anything undercuts the sense that they built it. Waiting until the very end risks them leaving before seeing anything useful. Revealing pieces as they go splits the difference, and it was a front-end filter rather than a change to clinical systems.",
+            question: 'Should members see plan items before completing any plan creation modules?',
+            options: 'Show everything right away; show items only once the whole flow is complete; or show items as each related module is completed.',
+            call: 'Show items as their module is completed. Showing items before the member takes any action works against the sense of co-creation; showing them only after everything is done risks never delivering information we think they should have. This relied on front-end filtering, which is simpler than changing back-end systems or clinical processes.',
           },
           {
-            question: 'What do we tell someone whose numbers are normal?',
-            options: '"Nothing to do here," send them back to their main dashboard, or keep them in the app with a prevention story.',
-            call: 'A prevention story. You\'re in range today, conditions like this develop over time, and regular screening plus a few good habits keep you there. Come back in six months. Healthy members are still members, and "no action needed" is a reason to leave.',
+            question: 'What is the story for members with normal cholesterol?',
+            options: 'Treat "no condition" like a condition to manage; congratulate them and send them back to their dashboard; or use the app to monitor for early warning signs and support optimization.',
+            call: 'Monitor for early warning signs and support optimization: you\'re in range today, but the condition can develop over time; regular screening and healthy habits keep you on track; come back in six months, set habit goals, and read up. Our clinical lead cautioned that this must not pull focus from areas where a member\'s values are abnormal.',
           },
+        ],
+        after: [
+          'Other recommendations in the PRD: anchor the cholesterol app on the member\'s diagnosis; build on the existing app and plan architecture rather than migrate first; let members log habits and change them at any time; and model user-driven habit goals as FHIR Goals with Observations, pending costing.',
         ],
       },
       {
-        heading: 'How we would have measured it',
+        heading: 'Metrics',
         body: [
-          'Every metric compared members with habit-based plans against members with the existing, simpler plans:',
+          'Comparing deep plans with habits against the existing plans without them:',
         ],
         items: [
-          '**Acceptance:** how many members chose to select habits, and how many bounced from the habit screen',
-          '**Stickiness:** app opens and active days in the first 30 days, and engagement by days since plan creation',
-          '**Engagement:** CarePod revisit rate, the number the whole project existed to move',
-          '**Effectiveness:** change in the related lab values between visits',
+          '**Stability:** crash rate from changes to the cholesterol app',
+          '**Acceptance:** click rate on "select habits" the first time a member sees plan navigation, and bounce rate on the habit screen',
+          '**Stickiness:** active days in the first 30 days, app open rate, and engagement by days since plan creation',
+          '**Engagement:** CarePod revisit rate',
+          '**Effectiveness:** change in related values',
         ],
       },
       {
-        heading: 'What happened',
+        heading: 'Plan and future ships',
         body: [
-          'Forward shut down in November 2024, partway through the build, so Deep Plans never reached members and I never got the answers to those four questions. That still stings a little.',
-          'What I took from it: the most useful thing I made was the structure, not the feature. Working the goal down from the mission to "every member creates a plan" kept the team pointed at retention instead of at shipping screens. Writing every open question as a fork with a recommendation turned slow, ambiguous debates with clinical and engineering into quick decisions, and the cases where we disagreed became the most useful parts of the document.',
+          'The ship was planned as roughly 4–6 weeks of build across November and December 2024, with PRD and design lock first, then engineering specs and build, and medication last. Future ships in the PRD:',
+        ],
+        items: [
+          'An asynchronous medication flow, to learn whether Forward could manage medication for more of the members it was indicated for',
+          'Integrated CarePod scheduling for diagnostic plan items, to learn whether it raises the revisit rate',
+          'Apple HealthKit and Android Health Connect feeding habit trends',
         ],
       },
     ],

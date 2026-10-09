@@ -12,8 +12,8 @@ describe('CaseStudy', () => {
   it('renders the care plans study with its sections and decisions', () => {
     render(<CaseStudy study={caseStudies['care-plans']} />);
     expect(screen.getByRole('heading', { level: 1, name: 'Care Plans' })).toBeInTheDocument();
-    expect(screen.getByText('The hard calls')).toBeInTheDocument();
-    expect(screen.getByText('Which condition do we pilot on?')).toBeInTheDocument();
+    expect(screen.getByText('Forks')).toBeInTheDocument();
+    expect(screen.getByText('Which app should we use as the tracer?')).toBeInTheDocument();
     expect(document.title).toBe('Care Plans — econr.ad');
   });
 
