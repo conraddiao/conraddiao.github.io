@@ -1,10 +1,19 @@
 import React from 'react';
 import './Footer.css';
 
-const Footer = () => {
+// `dot`: the resting place of the header's falling dot. It is laid out here so
+// it keeps its spacing at every width; 'waiting' holds the spot invisibly until
+// the falling dot arrives, 'landed' shows it. Omit for pages with no header.
+const Footer = ({ dot }) => {
   return (
     <footer>
       <div className="footer-heading">
+        {dot && (
+          <span
+            className={`footer-dot ${dot === 'landed' ? 'is-landed' : ''}`}
+            aria-hidden="true"
+          />
+        )}
         <p className="footer-qed">Quod erat demonstrandum.</p>
         <br />
       </div>

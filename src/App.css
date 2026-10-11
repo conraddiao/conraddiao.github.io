@@ -256,6 +256,13 @@ hr {
   animation: ball-fall 2.2s linear forwards;
 }
 
+/* Once the ball has reached the footer, the footer's own dot (Footer.css) takes
+   over. Removing this one keeps a stale fall distance from parking it in the
+   wrong place, or stretching the page, when the layout changes. */
+.scroll-hint.is-landed .scroll-hint__ball {
+  display: none;
+}
+
 /* Drip pacing: the line grows down while decelerating (suspense) — its bottom
    tracks the ball via the same ease-out — then holds at full height. */
 @keyframes line-grow {
@@ -270,8 +277,8 @@ hr {
   0%   { transform: translateY(0); opacity: 1; animation-timing-function: ease-out; }
   45%  { transform: translateY(144px); animation-timing-function: linear; }  /* arrives, slowed */
   63%  { transform: translateY(150px); animation-timing-function: cubic-bezier(0.6, 0, 1, 1); } /* hangs, then drops */
-  /* Falls all the way down and comes to rest just above the footer (distance
-     measured in JS), then freezes there. */
+  /* Falls all the way down to the footer dot's position (distance measured in
+     JS at the start of the fall), where the footer dot takes over. */
   100% { transform: translateY(var(--ball-drop, 80vh)); opacity: 1; }
 }
 

@@ -4,6 +4,41 @@ footer {
   
   .footer-heading {
     text-align: center;
+    position: relative;
+  }
+
+  /* Where the header's falling dot comes to rest: centred in the gap between
+     the last post's text and the closing line. Positioned against the footer
+     (not measured in JS), so the spacing holds at any width and through
+     resizes. Out of flow, so it adds no height.
+     --footer-gap is that gap: post copy margin (0.5rem) + card padding and
+     border (1.25rem + 2px) + list padding (2rem) + footer padding (1rem) +
+     closing-line margin (0.5rem). The card and list paddings shrink at 640px
+     (GridFeed.css), so the gap does too. */
+  footer {
+    --footer-gap: calc(5.25rem + 2px);
+  }
+
+  @media screen and (max-width: 640px) {
+    footer {
+      --footer-gap: calc(4.35rem + 2px);
+    }
+  }
+
+  .footer-dot {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--footer-gap) / -2 - 5px);
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    border-radius: 50%;
+    background: var(--color-text);
+    visibility: hidden;
+  }
+
+  .footer-dot.is-landed {
+    visibility: visible;
   }
 
   .footer-qed {

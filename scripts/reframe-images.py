@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Reframe portfolio images so they fill the media cards at both card shapes.
 
-The cards are 16:10 on desktop and 4:5 on phones, and images are shown with
+The cards are 16:12.5 on desktop and 4:6.25 on phones, and images are shown with
 `object-fit: cover`. For each source image this writes one "master" whose
 centre crop at *both* shapes shows the chosen focus area:
 
@@ -19,7 +19,7 @@ import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter1d, median_filter
 
-WIDE, TALL = 16 / 10, 4 / 5  # desktop and phone card shapes (w / h)
+WIDE, TALL = 16 / 12.5, 4 / 6.25  # desktop and phone card shapes (w / h)
 MAX_SIDE = 2600
 
 # focus:     (x0, y0, x1, y1) as fractions of the source — what the desktop card
@@ -32,7 +32,7 @@ MAX_SIDE = 2600
 # clip_only: never extend (busy photos): full height, centred on focus x.
 RECIPES = {
     "ug1-x2-1.jpg": dict(focus=(0.24, 0.10, 0.84, 0.92)),
-    "ug1-x2-2.jpg": dict(focus="all", trim=12, flat=True, tall_frac=0.70),
+    "ug1-x2-2.jpg": dict(focus="all", trim=12, flat=True, tall_frac=0.62),
     "ug1-x2-3.jpg": dict(focus="all", trim=8, flat=True),
     "ug2-x2-1.jpg": dict(focus="all"),
     "ug2-x2-2.jpg": dict(focus=(0.31, 0.0, 0.69, 1.0), clip_only=True),
@@ -43,12 +43,12 @@ RECIPES = {
     "ug202-x1-3.jpg": dict(focus="all"),
     "ug202-x1-4.jpg": dict(focus="all"),
     "ug202-x3-1.jpg": dict(focus=(0.0, 0.035, 1.0, 0.965), smooth=8),
-    "ug202-x3-2.jpg": dict(focus=(0.05, 0.0, 0.95, 1.0), tall_frac=0.64),
-    "villa-sul-lago-giuseppe-terragni-1.jpg": dict(focus="all", tall_frac=0.64),
-    "villa-sul-lago-giuseppe-terragni-2.jpg": dict(focus="all", tall_frac=0.56),
-    "villa-sul-lago-giuseppe-terragni-3.jpg": dict(focus="all", tall_frac=0.64),
-    "villa-sul-lago-giuseppe-terragni-5.jpg": dict(focus="content", tall_frac=0.60),
-    "villa-sul-lago-giuseppe-terragni-6.jpg": dict(focus="content", trim=14, flat=True, tall_frac=0.78),
+    "ug202-x3-2.jpg": dict(focus=(0.05, 0.0, 0.95, 1.0), tall_frac=0.58),
+    "villa-sul-lago-giuseppe-terragni-1.jpg": dict(focus="all", tall_frac=0.55),
+    "villa-sul-lago-giuseppe-terragni-2.jpg": dict(focus="all", tall_frac=0.48),
+    "villa-sul-lago-giuseppe-terragni-3.jpg": dict(focus="all", tall_frac=0.55),
+    "villa-sul-lago-giuseppe-terragni-5.jpg": dict(focus="content", tall_frac=0.52),
+    "villa-sul-lago-giuseppe-terragni-6.jpg": dict(focus="content", trim=14, flat=True, tall_frac=0.70),
     "villa-sul-lago-giuseppe-terragni-7.jpg": dict(focus="content"),
 }
 

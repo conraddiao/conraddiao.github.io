@@ -16,8 +16,8 @@ const getPausedHonorific = honorifics => {
   };
 };
 
-const TYPE_MS = 40; // per character while typing (matches the title Typewriter)
-const DELETE_MS = 40; // per character while backspacing
+const TYPE_MS = 27; // per character while typing (matches the title Typewriter)
+const DELETE_MS = 27; // per character while backspacing
 const HOLD_MS = 2600; // pause once a word is fully typed
 const EMPTY_MS = 400; // pause on empty before the next word
 
