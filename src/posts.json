@@ -27,6 +27,10 @@
         "type": "gallery",
         "tags": ["Forward"],
         "copy": "A self-serve physical inside the Forward CarePod. Step in, run your own blood draw and scans, and watch the results resolve in real time while a clinician reviews remotely — walking out with a full diagnostic and a care plan tailored on the spot.",
+        "video": {
+            "src": "/media/full-body-diagnostic-walkthrough.mp4",
+            "poster": "/media/full-body-diagnostic-walkthrough.jpg"
+        },
         "images": []
     },
     {
