@@ -6,7 +6,10 @@ const GridFeed = ({ posts }) => {
   return (
     <div className="post-list">
       {posts.map((post) => {
-        const linked = Boolean(post.url);
+        // Case studies link in-site; plain `url` posts open externally.
+        const href = post.caseStudy ? `/work/${post.caseStudy}` : post.url;
+        const external = !post.caseStudy;
+        const linked = Boolean(href);
 
         const body = (
           <>
@@ -28,9 +31,8 @@ const GridFeed = ({ posts }) => {
         return linked ? (
           <a
             className="post-card post-card--linked"
-            href={post.url}
-            target="_blank"
-            rel="noreferrer"
+            href={href}
+            {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
             data-project-card
             key={post.title}
           >
