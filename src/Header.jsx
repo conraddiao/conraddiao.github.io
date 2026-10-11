@@ -18,7 +18,7 @@ const TITLE_SEGMENTS = [
 // Types `segments` out one character at a time across the whole stream, then
 // calls `onDone`. Reuses the honorific caret so the cursor matches the
 // honorific animation.
-const Typewriter = ({ segments, speed = 40, onDone }) => {
+const Typewriter = ({ segments, speed = 27, onDone }) => {
   const total = segments.reduce((n, s) => n + s.text.length, 0);
   const [count, setCount] = useState(0);
   const doneRef = useRef(false);
@@ -63,7 +63,7 @@ const BALL_FALL_MS = 2200;
 
 // A company link that types out a tagline in grey on hover, and backspaces it
 // away on mouse-out. Reuses the honorific caret so the cursor matches.
-const CompanyLink = ({ href, label, tagline, typeSpeed = 28, deleteSpeed = 16 }) => {
+const CompanyLink = ({ href, label, tagline, typeSpeed = 19, deleteSpeed = 11 }) => {
   const [hovered, setHovered] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -111,6 +111,17 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag, onDotLanded
 
   const hintRef = useRef(null);
 
+  // Distance from the ball's start (5px above the top of the hint line) to the
+  // footer dot. Measured from the hint, which has no transform, so it is right
+  // even mid-fall.
+  const aimBall = useCallback(() => {
+    const hint = hintRef.current;
+    const rest = document.querySelector('.footer-dot');
+    if (!hint || !rest) return;
+    const drop = rest.getBoundingClientRect().top - (hint.getBoundingClientRect().top - 5);
+    hint.style.setProperty('--ball-drop', `${Math.max(0, Math.round(drop))}px`);
+  }, []);
+
   // Start the ball a bit after the bio has finished fading in (~0.7s fade).
   // It falls to the dot's resting place in the footer (distance measured once,
   // just for the fall). When it arrives the footer's own dot takes over, so the
@@ -118,17 +129,20 @@ const Header = ({ honorifics, allTags = [], activeTag, setActiveTag, onDotLanded
   useEffect(() => {
     if (!introDone) return undefined;
     const id = setTimeout(() => {
-      const hint = hintRef.current;
-      const ball = hint && hint.querySelector('.scroll-hint__ball');
-      const rest = document.querySelector('.footer-dot');
-      if (hint && ball && rest) {
-        const drop = rest.getBoundingClientRect().top - ball.getBoundingClientRect().top;
-        hint.style.setProperty('--ball-drop', `${Math.max(0, Math.round(drop))}px`);
-      }
+      aimBall();
       setHintVisible(true);
     }, 1000);
     return () => clearTimeout(id);
-  }, [introDone]);
+  }, [introDone, aimBall]);
+
+  // While the ball is in the air, keep its target current: a resize (or a
+  // phone's URL bar collapsing) moves the footer, and the keyframes read the
+  // distance live, so the ball still lands on the dot.
+  useEffect(() => {
+    if (!hintVisible || hintLanded) return undefined;
+    window.addEventListener('resize', aimBall);
+    return () => window.removeEventListener('resize', aimBall);
+  }, [hintVisible, hintLanded, aimBall]);
 
   // Hand off once the fall ends (animationend, with a timer in case the
   // animation never runs): hide the falling ball and show the footer dot.

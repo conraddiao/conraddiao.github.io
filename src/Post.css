@@ -3,14 +3,14 @@
     max-width: 808px;
     color: var(--color-text);
     /* Shape of the media frame (carousel, hero, video). Taller on phones. */
-    --media-ratio: 16 / 10;
-    --video-ratio: 16 / 9;
+    --media-ratio: 16 / 12.5;
+    --video-ratio: 16 / 11.25;
   }
 
   @media screen and (max-width: 640px) {
     .post {
-      --media-ratio: 4 / 5;
-      --video-ratio: 4 / 5;
+      --media-ratio: 4 / 6.25;
+      --video-ratio: 4 / 6.25;
     }
   }
   
@@ -107,8 +107,8 @@
   display: block;
 }
 
-/* Walkthrough videos are rendered 16:9 with the subject centred: shown whole
-   on desktop, cropped at the sides to the taller frame on phones. */
+/* Walkthrough videos are rendered 16:9 with the subject centred, so the taller
+   frames crop only empty backdrop at the sides (more of it on phones). */
 .post-hero--video {
   aspect-ratio: var(--video-ratio);
 }
