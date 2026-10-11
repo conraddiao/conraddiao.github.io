@@ -2,6 +2,16 @@
     margin: 0 auto;
     max-width: 808px;
     color: var(--color-text);
+    /* Shape of the media frame (carousel, hero, video). Taller on phones. */
+    --media-ratio: 16 / 10;
+    --video-ratio: 16 / 9;
+  }
+
+  @media screen and (max-width: 640px) {
+    .post {
+      --media-ratio: 4 / 5;
+      --video-ratio: 4 / 5;
+    }
   }
   
   .postDate {
@@ -11,7 +21,7 @@
   
   .container {
     background-color: var(--color-skeleton);
-    aspect-ratio: 16 / 10;
+    aspect-ratio: var(--media-ratio);
     border-radius: 6px;
     display: flex;
     overflow-x: scroll;
@@ -36,12 +46,16 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    object-fit: contain;
+    min-width: 0;
   }
   
+  /* Images fill the frame; they are pre-framed so the centre crop works at
+     both shapes (see scripts/reframe-images.py). */
   .post-image img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   
   .pagination {
@@ -72,7 +86,7 @@
 .post-hero {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: var(--media-ratio);
   margin: 0 0 1.25rem;
   border-radius: 6px;
   overflow: hidden;
@@ -93,9 +107,10 @@
   display: block;
 }
 
-/* Walkthrough videos are rendered 16:9 — match it so nothing is cropped. */
+/* Walkthrough videos are rendered 16:9 with the subject centred: shown whole
+   on desktop, cropped at the sides to the taller frame on phones. */
 .post-hero--video {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: var(--video-ratio);
 }
 
 .post-hero--idle {
