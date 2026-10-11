@@ -18,6 +18,8 @@ const workMatch = (pathname) => pathname.match(/^\/work\/([\w-]+)\/?$/);
 
 function App() {
   const [activeTag, setActiveTag] = useState(null);
+  // The header's falling dot hands off to a dot that lives in the footer.
+  const [dotLanded, setDotLanded] = useState(false);
   useDarkMode();
 
   const allTags = useMemo(() => {
@@ -51,9 +53,10 @@ function App() {
         allTags={allTags}
         activeTag={activeTag}
         setActiveTag={setActiveTag}
+        onDotLanded={() => setDotLanded(true)}
       />
       <GridFeed posts={filteredPosts} />
-      <Footer />
+      <Footer dot={dotLanded ? 'landed' : 'waiting'} />
       <Cursor />
       <Analytics />
     </div>
